@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block css %}{% endblock %}
+
+{% block title %}Login Page{% endblock %}
+
+{% block headerContent %}{% endblock %}
+
+{% block bodyContent %}
+    <h2>Login</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Login</button>
+        <a href="{% url 'signup' %}" class="btn">Sign Up</a>
+    </form>
+
+    <br>
+    <br>
+
+    <a href="{% url 'landing-page' %}" class="btn">← Home</a>
+{% endblock %}
+
+{% block footerContent %}{% endblock %}

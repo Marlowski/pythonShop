@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="description" content="Unser Webshop Projekt basierend auf dem Python Framework Django.">
+        {% block css %}{% endblock %}
+        <title>{% block title %}Base Titel{% endblock %}</title>
+    </head>
+    <body>
+        <header class="header">
+            {% block headerContent %}Header Block{% endblock %}
+        </header>
+
+        <main class="main">
+            {% block bodyContent %}Base Block{% endblock %}
+        </main>
+
+        <footer class="footer">
+            {% block footerContent %}Footer Block{% endblock %}
+        </footer>
+    </body>
+</html>
