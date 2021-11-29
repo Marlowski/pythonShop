@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'UserManagement.apps.UsermanagementConfig',
+    'Rings.apps.RingsConfig',
 ]
 
 MIDDLEWARE = [
