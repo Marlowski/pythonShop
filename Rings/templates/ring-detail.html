@@ -1,8 +1,11 @@
-{% extends 'home.html' %}
+{% extends 'base.html' %}
+{% load static %}
 
+{% block css %}{% endblock %}
 {% block title %}Ring detail{% endblock %}
 
-{% block content %}
+{% block headerContent %}{% endblock %}
+{% block bodyContent %}
 <h2>Ring detail</h2>
 
     <table>
@@ -23,7 +26,6 @@
         <td>{{ that_one_ring.ring_Breite }}<br></td>
     </tr>
     </table>
-
     <br>
-    <a href="{% url 'ring-list' %}">Back to all Rings</a>
 {% endblock %}
+{% block footerContent %}{% endblock %}

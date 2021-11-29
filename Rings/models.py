@@ -10,17 +10,15 @@ class Ring(models.Model):
         ('RG', 'Rosegold'),
     ]
 
-
     bezeichnung = models.CharField(max_length=100)
 
     preis = models.DecimalField(max_digits=7, decimal_places=2)
 
     material = models.CharField(max_length=2,
-                             choices=RING_MATERIALS,
-                             )
+                                choices=RING_MATERIALS,
+                                )
 
     ring_Breite = models.CharField(max_length=5)
-
 
     user = models.ForeignKey(User,
                              on_delete=models.CASCADE,

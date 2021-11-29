@@ -22,6 +22,6 @@ urlpatterns = [
     path('', views.landing_page, name='landing-page'),
     path('userManagement/', include('UserManagement.urls')),
     path('userManagement/', include('django.contrib.auth.urls')),
-    path('Rings/',include('Rings.urls')),
-    path('Rings/',include('django.contrib.auth.urls')),
+    path('rings/', include('Rings.urls')),
+    path('rings/', include('django.contrib.auth.urls')),
 ]
