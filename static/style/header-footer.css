@@ -1,0 +1,11 @@
+header .header__elem-wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+header .header__elem-wrapper img {
+  max-width: 200px;
+}
+
+/*# sourceMappingURL=header-footer.css.map */
