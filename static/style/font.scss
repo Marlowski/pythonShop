@@ -1,0 +1,29 @@
+ $sans-serif-font: 'europa';
+$fallback-font: sans-serif;
+$basic-font-size: 1rem;
+
+:root {
+  font-family: $sans-serif-font, $fallback-font;
+  font-size: $basic-font-size;
+  --DarkColor: #212121;
+  --Green: #0e793e;
+}
+
+ h1 {
+   font-size: 2.75rem;
+ }
+ h2 {
+   font-size: 1.75rem;
+ }
+ h3 {
+   font-size: 1.4rem;
+   font-weight: 300;
+ }
+h4 {
+  font-size: 1.2rem;
+  font-weight: 300;
+}
+
+ p {
+   font-size: 1.1rem;
+ }

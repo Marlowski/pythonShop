@@ -1,9 +1,40 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <link rel="icon" href="{% static "assets/logos/Jmonds_logo_o.svg" %}">
+    <link href="https://unpkg.com/sanitize.css" rel="stylesheet">
+    <link href="../static/style/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.typekit.net/jby6hqc.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="../static/script/script.js"></script>
+    <title>Jmonds | Klassiker Eheringe</title>
 </head>
+<header>
+    <div class="header__elem-wrapper banner-wrapper">
+        <div>
+           <a href="{%  url 'landing-page' %}"><img src="{% static "assets/logos/Jmonds_logo_ecoFair.png" %}" alt="JMONDS - Eco & Fair"></a>
+        </div>
+        <div class="elem-wrapper__icon-wrapper">
+            <form id="search-container">
+                <label for="searchbar">Suche</label>
+                <input type="text" placeholder="Suche" name="search" id="searchbar">
+                <button type="submit"><img src="{% static "assets/icons/search.png" %}" alt="Suchen"></button>
+            </form>
+            <a href="#"><img src="{% static "assets/icons/user.png" %}" alt="Login"></a>
+            <a href="#"><img src="{% static "assets/icons/shopping-bag.png" %}" alt="Cart"></a>
+        </div>
+    </div>
+    <div class="header__navbar">
+        <ul>
+            <li><a href="#">Gelbgold</a></li>
+            <li><a href="#">Weißgold</a></li>
+            <li><a href="#">Rosegold</a></li>
+        </ul>
+    </div>
+</header>
 <body>
     <p>Landing page</p>
 </body>

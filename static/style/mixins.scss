@@ -1,0 +1,10 @@
+@mixin flex-box($flex-direction: row, $flex-wrap: wrap, $justify-content: center, $align-items: center) {
+  display: flex;
+  @if $flex-direction == column {
+    flex-flow: $flex-direction nowrap;
+  } @else {
+    flex-flow: $flex-direction $flex-wrap;
+  }
+  justify-content: $justify-content;
+  align-items: $align-items;
+}
