@@ -8,7 +8,7 @@
 7. Nun sollte das Programm einsatzbereit sein und mit **python manage.py runserver** zum laufen gebracht werden können.
 
 
-##Eigenes Projekt richtig mit dem Repository mergen
+## Eigenes Projekt richtig mit dem Repository mergen
 1. Neue eigene Änderung **commiten**
 2. Veränderungen im Repo mit **git pull** holen
 3. Änderungen in eigenen Code übernehmen
