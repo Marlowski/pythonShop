@@ -1,6 +1,8 @@
 @use "mixins";
 
 header {
+  margin-bottom: 25px;
+
   .header__elem-wrapper {
     padding: 20px;
     @include mixins.flex-box($justify-content: space-between);
@@ -98,4 +100,40 @@ header {
     }
   }
 
+}
+
+@media screen and (max-width: 860px) {
+  header .header__elem-wrapper {
+    height: 150px;
+    flex-flow: column nowrap;
+    justify-content: center;
+    padding-bottom: 5px;
+
+    &.banner-wrapper {
+      margin-bottom: 0;
+
+      .elem-wrapper__icon-wrapper {
+        padding-right: 0;
+      }
+    }
+  }
+  header .header__elem-wrapper.banner-wrapper > div:first-of-type {
+    padding: 0;
+    justify-content: center;
+  }
+  header .header__elem-wrapper.banner-wrapper > div {
+    max-height: 70px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  header .header__navbar ul li {
+    margin: 0 8px;
+    a {
+      font-size: .9rem;
+    }
+  }
+  header .header__elem-wrapper #search-container input {
+    width: 180px;
+  }
 }
