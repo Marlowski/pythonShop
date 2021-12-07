@@ -19,13 +19,37 @@
     </tr>
     <tr>
         <td><b>Material :</b></td>
-        <td>{{ that_one_ring.get_material_display }}<br></td>
+        <td>{{ that_one_ring.material }}<br></td>
     </tr>
     <tr>
         <td><b>Ringbreite :</b></td>
         <td>{{ that_one_ring.ring_Breite }}<br></td>
     </tr>
     </table>
+    <span style="color: darkgreen">{{ upvotes }}</span>
+    <a href="{% url 'ring-vote' that_one_ring.id 'up' %}" style="text-decoration: none">
+       U
+    </a>
+    &nbsp;&nbsp;&nbsp;
+    <span style="color: crimson">{{ downvotes }}</span>
+    <a href="{% url 'ring-vote' that_one_ring.id 'down' %}" style="text-decoration: none">
+        D
+    </a>
+    <br><br>
+
+    {% for comment in comments_for_that_one_ring %}
+        <b style="color: darkgreen">{{ comment.user.username }} on {{ comment.timestamp }}</b><br>
+        {{ comment.text }}<br><br>
+    {% endfor %}
+    <br>
+
+    <b style="color: aqua">Do you have a comment for this ring?</b><br>
+    <form method="POST">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <button type="submit">Add comment</button>
+    </form>
+
     <br>
 {% endblock %}
 {% block footerContent %}{% endblock %}
