@@ -1,22 +1,46 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="description" content="Unser Webshop Projekt basierend auf dem Python Framework Django.">
-        {% block css %}{% endblock %}
-        <title>{% block title %}Base Titel{% endblock %}</title>
-    </head>
-    <body>
-        <header class="header">
-            {% block headerContent %}Header Block{% endblock %}
-        </header>
-
-        <main class="main">
-            {% block bodyContent %}Base Block{% endblock %}
-        </main>
-
-        <footer class="footer">
-            {% block footerContent %}Footer Block{% endblock %}
-        </footer>
-    </body>
+<html lang="de" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" href="{% static "assets/logos/Jmonds_logo_o.svg" %}">
+    <link href="https://unpkg.com/sanitize.css" rel="stylesheet">
+    <link href="{% static "../static/style/style.css" %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.typekit.net/jby6hqc.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static "../static/script/script.js" %}"></script>
+    <title>Jmonds | Klassiker Eheringe</title>
+</head>
+<body>
+<header>
+    <div class="header__elem-wrapper banner-wrapper">
+        <div>
+           <a href="{%  url 'landing-page' %}"><img src="{% static "assets/logos/Jmonds_logo_ecoFair.png" %}" alt="JMONDS - Eco & Fair"></a>
+        </div>
+        <div class="elem-wrapper__icon-wrapper">
+            <form id="search-container">
+                <label for="searchbar">Suche</label>
+                <input type="text" placeholder="Suche" name="search" id="searchbar">
+                <button type="submit"><img src="{% static "assets/icons/search.png" %}" alt="Suchen"></button>
+            </form>
+            <a href="#"><img src="{% static "assets/icons/user.png" %}" alt="Login"></a>
+            <a href="#"><img src="{% static "assets/icons/shopping-bag.png" %}" alt="Cart"></a>
+        </div>
+    </div>
+    <div class="header__navbar">
+        <ul>
+            <li><a href="#">Gelbgold</a></li>
+            <li><a href="#">Weißgold</a></li>
+            <li><a href="#">Rosegold</a></li>
+        </ul>
+    </div>
+</header>
+<main>
+    {% block bodyContent %}Base Block{% endblock %}
+</main>
+<footer>
+    <p>Footer</p>
+</footer>
+</body>
 </html>

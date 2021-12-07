@@ -3,7 +3,6 @@ from .models import Ring, Comment
 
 
 class RingForm(forms.ModelForm):
-
     class Meta:
         model = Ring
         fields = ['bezeichnung', 'preis', 'material', 'ring_Breite']
@@ -12,8 +11,8 @@ class RingForm(forms.ModelForm):
             'user': forms.HiddenInput(),
         }
 
-class CommentForm(forms.ModelForm):
 
+class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ['text']

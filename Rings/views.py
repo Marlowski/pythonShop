@@ -31,10 +31,9 @@ def ring_detail(request, **kwargs):
                'comment_form': CommentForm}
     return render(request, 'ring-detail.html', context)
 
+
 def vote(request, pk: str, up_or_down: str):
     ring = Ring.objects.get(id=int(pk))
     user = request.user
     ring.vote(user, up_or_down)
     return redirect('ring_detail', pk=pk)
-
-

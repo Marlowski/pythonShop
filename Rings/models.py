@@ -67,7 +67,6 @@ class Ring(models.Model):
         return self.get_full_name() + ' / ' + self.preis + ' / ' + self.ring_Breite
 
 
-
 class Comment(models.Model):
     text = models.TextField(max_length=500)
     timestamp = models.DateTimeField(auto_now_add=True)
@@ -100,7 +99,7 @@ class Vote(models.Model):
 
     up_or_down = models.CharField(max_length=1,
                                   choices=VOTE_TYPES,
-                                 )
+                                  )
     timestamp = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     ring = models.ForeignKey(Ring, on_delete=models.CASCADE)
