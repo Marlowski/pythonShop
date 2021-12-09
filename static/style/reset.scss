@@ -24,3 +24,55 @@ h1, h2, h3, h4, p, ul, li, a {
   margin: 0;
   padding: 0;
 }
+
+.btn {
+  text-decoration: none;
+  background: none;
+  border: 2px solid #000;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 5px;
+  transition: background-color .2s ease-out, color .2s ease-out;
+  font-size: .8rem;
+  color: #000;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #000;
+    color: #fff;
+  }
+}
+
+.secondary-btn {
+  background: none;
+  text-decoration: none;
+  border-bottom: 2px solid #000;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 2px 0;
+  font-size: .8rem;
+  color: #000;
+  cursor: pointer;
+  transition: color .2s ease-out, border-color .2s ease-out;
+
+  &:hover {
+    color: #484848;
+    border-color: #484848;
+  }
+}
+
+.tertiary-btn {
+  background: none;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 2px 0;
+  font-size: .8rem;
+  color: #000;
+  cursor: pointer;
+  transition: color .2s ease-out;
+
+  &:hover {
+    color: #484848;
+  }
+}

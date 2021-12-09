@@ -1,26 +1,19 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block css %}{% endblock %}
-
-{% block title %}Signup Page{% endblock %}
-
-{% block headerContent %}{% endblock %}
-
 {% block bodyContent %}
-    <h2>Sign Up</h2>
-
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Sign In</button>
-        <a href="{% url 'login' %}" class="btn">Login</a>
-    </form>
-
-    <br>
-    <br>
-
-    <a href="{% url 'landing-page' %}" class="btn">← Home</a>
+    <div id="mm-page">
+        <div class="mm-page__inner-wrapper">
+            <a class="tertiary-btn back-btn" href="{% url 'landing-page' %}">&#9666; Zurück</a>
+            <h2>Sign Up</h2>
+            <form method="post" class="signup-form">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="form__btn-wrapper">
+                    <button type="submit" class="btn">Sign In</button>
+                    <a href="{% url 'login' %}" class="secondary-btn">Login</a>
+                </div>
+            </form>
+        </div>
+    </div>
 {% endblock %}
-
-{% block footerContent %}{% endblock %}
