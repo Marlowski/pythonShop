@@ -2,6 +2,26 @@
 {% load static %}
 
 {% block bodyContent %}
-    <p>Landing page</p>
-    <p>Test change placeholder</p>
+    <div id="main-banner">
+        <div class="text-wrapper">
+            <img src="{% static "assets/icons/jmonds_border_frame.png" %}" alt="Eco & Fair">
+            <h2>Jmonds Klassiker</h2>
+            <a href="#">Modelle Entdecken</a>
+        </div>
+        <img src="{% static "assets/banner/jmonds-banner-klassiker-gg.png" %}" alt="Gelbgold Klassiker">
+    </div>
+    <div id="triple-banner-container">
+        <a class="banner-wrapper" href="#">
+            <h3>Weiß</h3>
+            <img src="{% static "assets/banner/jmonds-banner-klassiker-wg.png" %}" alt="Weissgold Klassiker">
+        </a>
+        <a class="banner-wrapper" href="#">
+            <h3>Gelb</h3>
+            <img src="{% static "assets/banner/jmonds-banner-klassiker-gg.png" %}" alt="Gelbgold Klassiker">
+        </a>
+        <a class="banner-wrapper" href="#">
+            <h3>Rose</h3>
+            <img src="{% static "assets/banner/jmonds-banner-klassiker-rg.png" %}" alt="Rosegold Klassiker">
+        </a>
+    </div>
 {% endblock %}

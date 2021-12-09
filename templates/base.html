@@ -9,6 +9,9 @@
     <link href="{% static "../static/style/style.css" %}" rel="stylesheet">
     <link rel="stylesheet" href="https://use.typekit.net/jby6hqc.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
     <script src="{% static "../static/script/script.js" %}"></script>
     <title>Jmonds | Klassiker Eheringe</title>
 </head>
@@ -24,7 +27,15 @@
                 <input type="text" placeholder="Suche" name="search" id="searchbar">
                 <button type="submit"><img src="{% static "assets/icons/search.png" %}" alt="Suchen"></button>
             </form>
-            <a href="#"><img src="{% static "assets/icons/user.png" %}" alt="Login"></a>
+            {% if user.is_authenticated %}
+                {% block logged_in_content %}
+                    <a href="{% url 'landing-page' %}"><img src="{% static "assets/icons/home.png" %}" alt="Profil"></a>
+                {% endblock %}
+            {% else %}
+                {% block not_logged_in_content %}
+                    <a href="{% url 'login' %}"><img src="{% static "assets/icons/user.png" %}" alt="Login"></a>
+                {% endblock %}
+            {% endif %}
             <a href="#"><img src="{% static "assets/icons/shopping-bag.png" %}" alt="Cart"></a>
         </div>
     </div>
@@ -39,8 +50,5 @@
 <main>
     {% block bodyContent %}Base Block{% endblock %}
 </main>
-<footer>
-    <p>Footer</p>
-</footer>
 </body>
 </html>
