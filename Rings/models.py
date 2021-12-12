@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 class Ring(models.Model):
     RING_MATERIALS = [
-        ('G', 'Gold'),
+        ('GG', 'Gelbgold'),
         ('WG', 'Weissgold'),
         ('RG', 'Rosegold'),
     ]
@@ -64,7 +64,7 @@ class Ring(models.Model):
         return self.bezeichnung + ' (' + self.material + ')'
 
     def __repr__(self):
-        return self.get_full_name() + ' / ' + self.preis + ' / ' + self.ring_Breite
+        return self.get_full_name() + ' / ' + str(self.preis) + ' / ' + str(self.ring_Breite)
 
 
 class Comment(models.Model):

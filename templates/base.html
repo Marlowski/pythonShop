@@ -23,9 +23,10 @@
            <a href="{%  url 'landing-page' %}"><img src="{% static "assets/logos/Jmonds_logo_ecoFair.png" %}" alt="JMONDS - Eco & Fair"></a>
         </div>
         <div class="elem-wrapper__icon-wrapper">
-            <form id="search-container">
+            <form id="search-container" method="POST">
+                {% csrf_token %}
                 <label for="searchbar">Suche</label>
-                <input type="text" placeholder="Suche" name="search" id="searchbar">
+                <input type="text" placeholder="Suche" name="search_input" id="searchbar">
                 <button type="submit"><img src="{% static "assets/icons/search.png" %}" alt="Suchen"></button>
             </form>
             {% if user.is_authenticated %}
