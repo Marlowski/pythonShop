@@ -11,15 +11,15 @@
         <img src="{% static "assets/banner/jmonds-banner-klassiker-gg.png" %}" alt="Gelbgold Klassiker">
     </div>
     <div id="triple-banner-container">
-        <a class="banner-wrapper" href="#">
+        <a class="banner-wrapper" href="{% url 'ring-list' query='Weißgold' %}">
             <h3>Weiß</h3>
             <img src="{% static "assets/banner/jmonds-banner-klassiker-wg.png" %}" alt="Weissgold Klassiker">
         </a>
-        <a class="banner-wrapper" href="#">
+        <a class="banner-wrapper" href="{% url 'ring-list' query='Gelbgold' %}">
             <h3>Gelb</h3>
             <img src="{% static "assets/banner/jmonds-banner-klassiker-gg.png" %}" alt="Gelbgold Klassiker">
         </a>
-        <a class="banner-wrapper" href="#">
+        <a class="banner-wrapper" href="{% url 'ring-list' query='Rosegold' %}">
             <h3>Rose</h3>
             <img src="{% static "assets/banner/jmonds-banner-klassiker-rg.png" %}" alt="Rosegold Klassiker">
         </a>

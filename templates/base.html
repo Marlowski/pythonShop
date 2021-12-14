@@ -26,7 +26,6 @@
             <form id="search-container" method="POST">
                 {% csrf_token %}
                 <label for="searchbar">Suche</label>
-                <input type="text" name="search_form_origin" id="searchbar" value="true" style="display: none">
                 <input type="text" placeholder="Suche" name="search_input" id="searchbar">
                 <button type="submit"><img src="{% static "assets/icons/search.png" %}" alt="Suchen"></button>
             </form>
@@ -44,9 +43,9 @@
     </div>
     <div class="header__navbar">
         <ul>
-            <li><a href="#">Gelbgold</a></li>
-            <li><a href="#">Weißgold</a></li>
-            <li><a href="#">Rosegold</a></li>
+            <li><a href="{% url 'ring-list' query='Gelbgold' %}">Gelbgold</a></li>
+            <li><a href="{% url 'ring-list' query='Weißgold' %}">Weißgold</a></li>
+            <li><a href="{% url 'ring-list' query='Rosegold' %}">Rosegold</a></li>
         </ul>
     </div>
 </header>

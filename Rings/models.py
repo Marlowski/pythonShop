@@ -53,6 +53,18 @@ class Ring(models.Model):
     def get_downvotes_count(self):
         return len(self.get_downvotes())
 
+    def get_average_upvote(self):
+        if len(self.get_upvotes()) != 0:
+            # return % value
+            return round(len(self.get_upvotes())/(len(self.get_upvotes()) + len(self.get_downvotes())) * 100)
+        else:
+            # only downvotes
+            if len(self.get_downvotes()) != 0:
+                return 0
+            # no votes yet
+            else:
+                return None
+
     def vote(self, user, up_or_down):
         u_or_d = 'U'
         if up_or_down == 'down':

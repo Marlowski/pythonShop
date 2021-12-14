@@ -21,7 +21,6 @@ from . import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.landing_page, name='landing-page'),
-    path('home/', views.home_page, name='home'),
     path('userManagement/', include('UserManagement.urls')),
     path('userManagement/', include('django.contrib.auth.urls')),
     path('rings/', include('Rings.urls')),

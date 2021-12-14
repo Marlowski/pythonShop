@@ -1,6 +1,5 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, redirect
-from django.urls import resolve
+from django.shortcuts import redirect
 
 from Rings.models import Ring
 
@@ -23,7 +22,5 @@ def search_script(request):
         # only one elem found
         if len(search_results) == 1:
             return redirect('/rings/product/' + str(search_results[0].id))
-            # return ring_detail(request, pk=search_results[0].id)
         else:
-            # TODO: auf List Seite verlinken
-            return render(request, 'landingpage.html')
+            return redirect('/rings/list/results/' + search_input)

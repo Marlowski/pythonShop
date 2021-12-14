@@ -9,6 +9,3 @@ def landing_page(request):
     else:
         return render(request, 'landingpage.html')
 
-
-def home_page(request):
-    return render(request, 'home.html')

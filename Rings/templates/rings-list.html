@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block bodyContent %}
+    <div class="list__title-banner">
+        {% if query_origin %}
+            <h3>{{ product_list|length }} Suchergebnisse für:</h3>
+            <h2>{{ query_text }}</h2>
+        {% else %}
+            <h2>{{ query_text }}</h2>
+        {% endif %}
+    </div>
+
+
+    {% if product_list %}
+        <ul class="list__product-list-container">
+            {% for elem in product_list %}
+                <li>
+                    <a href="{% url 'ring_detail' pk=elem.id %}">
+                        <img src="{% static elem.product_img_url %} " alt="{{ elem.bezeichnung }} Bild">
+                        <h4>{{ elem.bezeichnung }}</h4>
+                        <div class="list__rating-wrapper">
+                            {% if elem.get_average_upvote %}
+                                <p>Gefällt {{ elem.get_average_upvote }}%</p>
+                            {% endif %}
+                        </div>
+                        <h5>{{ elem.preis }}</h5>
+                    </a>
+                </li>
+        {% endfor %}
+        </ul>
+
+    {% else %}
+        <h3 class="list__no-result-text">Es wurden Keine passenden Produkte gefunden!</h3>
+    {% endif %}
+{% endblock %}

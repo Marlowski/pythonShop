@@ -8,11 +8,8 @@ from static.script.search import search_script
 # Create your views here.
 
 def ring_detail(request, **kwargs):
-    print(kwargs)
     ring_id = kwargs['pk']
     that_one_ring = Ring.objects.get(id=ring_id)
-    print(str(ring_id), " :: ", that_one_ring)
-    context = {'that_one_ring': that_one_ring}
 
     # Add comment
     if request.method == 'POST':
@@ -42,3 +39,18 @@ def vote(request, pk: str, up_or_down: str):
     user = request.user
     ring.vote(user, up_or_down)
     return redirect('ring_detail', pk=pk)
+
+
+def rings_list(request, **kwargs):
+    if request.method == 'POST' and request.POST.__contains__('search_input'):
+        # Check if POST req. comes from search form
+        return search_script(request)
+
+    product_query = Ring.objects.filter(bezeichnung__contains=kwargs['query'])
+    context = {'product_list': product_query, 'query_origin': False, 'query_text': kwargs['query']}
+
+    # view called via search input
+    if request.path_info.__contains__("result"):
+        context['query_origin'] = True
+
+    return render(request, 'rings-list.html', context)
