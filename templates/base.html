@@ -26,6 +26,7 @@
             <form id="search-container" method="POST">
                 {% csrf_token %}
                 <label for="searchbar">Suche</label>
+                <input type="text" name="search_form_origin" id="searchbar" value="true" style="display: none">
                 <input type="text" placeholder="Suche" name="search_input" id="searchbar">
                 <button type="submit"><img src="{% static "assets/icons/search.png" %}" alt="Suchen"></button>
             </form>

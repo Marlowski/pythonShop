@@ -20,6 +20,8 @@ class Ring(models.Model):
 
     ring_Breite = models.CharField(max_length=5)
 
+    product_img_url = models.CharField(max_length=300)
+
     user = models.ForeignKey(User,
                              on_delete=models.CASCADE,
                              related_name='users',
@@ -52,10 +54,10 @@ class Ring(models.Model):
         return len(self.get_downvotes())
 
     def vote(self, user, up_or_down):
-        U_or_D = 'U'
+        u_or_d = 'U'
         if up_or_down == 'down':
-            U_or_D = 'D'
-        vote = Vote.objects.create(up_or_down=U_or_D,
+            u_or_d = 'D'
+        vote = Vote.objects.create(up_or_down=u_or_d,
                                    user=user,
                                    ring=self
                                    )

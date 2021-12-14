@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 
 from .forms import CommentForm
 from .models import Ring, Comment
+from static.script.search import search_script
 
 
 # Create your views here.
@@ -15,6 +16,10 @@ def ring_detail(request, **kwargs):
 
     # Add comment
     if request.method == 'POST':
+        # Check if POST req. comes from search form
+        if request.POST.__contains__('search_input'):
+            return search_script(request)
+
         form = CommentForm(request.POST)
         form.instance.user = request.user
         form.instance.ring = that_one_ring
