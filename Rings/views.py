@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 
+from Cart.models import Cart, add_item
 from .forms import CommentForm
 from .models import Ring, Comment
 from static.script.search import search_script
@@ -10,6 +11,7 @@ from static.script.search import search_script
 def ring_detail(request, **kwargs):
     ring_id = kwargs['pk']
     that_one_ring = Ring.objects.get(id=ring_id)
+    comments = Comment.objects.filter(ring=that_one_ring)
 
     # Add comment
     if request.method == 'POST':
@@ -17,6 +19,13 @@ def ring_detail(request, **kwargs):
         if request.POST.__contains__('search_input'):
             return search_script(request)
 
+        if request.POST.__contains__('add_to_cart'):
+            add_item(request, that_one_ring)
+            return render(request, 'ring-detail.html', context={'that_one_ring': that_one_ring,
+                                                                'comments_for_that_one_ring': comments,
+                                                                'upvotes': that_one_ring.get_upvotes_count(),
+                                                                'downvotes': that_one_ring.get_downvotes_count(),
+                                                                'comment_form': CommentForm})
         form = CommentForm(request.POST)
         form.instance.user = request.user
         form.instance.ring = that_one_ring
@@ -24,8 +33,8 @@ def ring_detail(request, **kwargs):
             form.save()
         else:
             print(form.errors)
+    # /end if==POST
 
-    comments = Comment.objects.filter(ring=that_one_ring)
     context = {'that_one_ring': that_one_ring,
                'comments_for_that_one_ring': comments,
                'upvotes': that_one_ring.get_upvotes_count(),

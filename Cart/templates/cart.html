@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block bodyContent %}
+    <h2>Cart</h2>
+    {% if cart_is_empty %}
+        <p>Cart is empty</p>
+    {% else %}
+        {% for item in cart_items %}
+        {{ item.product_name }}<br/>
+        {{ item.price }} € x{{ item.quantity }}<br/>
+    {% endfor %}
+
+    total: {{ total }} €
+
+    <br><br>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit" name="empty">Empty cart</button><br/>
+        <button type="submit" name="pay">pay</button>
+    </form>
+    {% endif %}
+
+    <a href="{% url 'landing-page' %}">zurück</a>
+{% endblock %}

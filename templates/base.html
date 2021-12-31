@@ -38,7 +38,7 @@
                     <a href="{% url 'login' %}"><img src="{% static "assets/icons/user.png" %}" alt="Login"></a>
                 {% endblock %}
             {% endif %}
-            <a href="#"><img src="{% static "assets/icons/shopping-bag.png" %}" alt="Cart"></a>
+            <a href="{% url 'cart-show' %}"><img src="{% static "assets/icons/shopping-bag.png" %}" alt="Cart"></a>
         </div>
     </div>
     <div class="header__navbar">

@@ -56,7 +56,11 @@
             {{ comment_form.as_p }}
             <button type="submit">Add comment</button>
         </form>
-
         <br>
     {% endif %}
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="add_to_cart" style="display: none">
+        <button type="submit">Add to Cart</button>
+    </form>
 {% endblock %}

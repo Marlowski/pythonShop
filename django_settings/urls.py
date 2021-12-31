@@ -25,4 +25,5 @@ urlpatterns = [
     path('userManagement/', include('django.contrib.auth.urls')),
     path('rings/', include('Rings.urls')),
     path('rings/', include('django.contrib.auth.urls')),
+    path('cart/', include('Cart.urls')),
 ]

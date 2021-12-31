@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'UserManagement.apps.UsermanagementConfig',
     'Rings.apps.RingsConfig',
+    'Cart.apps.CartConfig',
 ]
 
 MIDDLEWARE = [
@@ -128,3 +129,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'landing-page'
 LOGOUT_REDIRECT_URL = 'landing-page'
+
+# AUTH_USER_MODEL = 'UserManagement.userTypes'

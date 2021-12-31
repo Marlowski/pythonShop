@@ -6,7 +6,10 @@
         <div class="mm-page__inner-wrapper">
             <a class="tertiary-btn back-btn" href="{% url 'landing-page' %}">&#9666; Zurück</a>
             <h2>Login</h2>
-            <form method="post">
+            {% if user.is_authenticated %}
+                <h4>Sie sind bereits eingeloggt!</h4>
+            {% else %}
+                <form method="post">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <div class="form__btn-wrapper">
@@ -14,6 +17,7 @@
                     <a href="{% url 'signup' %}" class="secondary-btn">Sign Up</a>
                 </div>
             </form>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

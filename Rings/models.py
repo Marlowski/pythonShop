@@ -22,12 +22,6 @@ class Ring(models.Model):
 
     product_img_url = models.CharField(max_length=300)
 
-    user = models.ForeignKey(User,
-                             on_delete=models.CASCADE,
-                             related_name='users',
-                             related_query_name='user',
-                             )
-
     class Meta:
         ordering = ['bezeichnung', '-preis']
         verbose_name = 'Ring'
@@ -56,7 +50,7 @@ class Ring(models.Model):
     def get_average_upvote(self):
         if len(self.get_upvotes()) != 0:
             # return % value
-            return round(len(self.get_upvotes())/(len(self.get_upvotes()) + len(self.get_downvotes())) * 100)
+            return round(len(self.get_upvotes()) / (len(self.get_upvotes()) + len(self.get_downvotes())) * 100)
         else:
             # only downvotes
             if len(self.get_downvotes()) != 0:
