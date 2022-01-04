@@ -41,11 +41,22 @@ h1, h2, h3, h4, p, ul, li, a {
     background-color: #000;
     color: #fff;
   }
+
+  &.inverted {
+    background-color: #000;
+    color: #fff;
+
+    &:hover {
+      color: #000;
+      background-color: transparent;
+    }
+  }
 }
 
 .secondary-btn {
   background: none;
   text-decoration: none;
+  border: none;
   border-bottom: 2px solid #000;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -63,6 +74,7 @@ h1, h2, h3, h4, p, ul, li, a {
 
 .tertiary-btn {
   background: none;
+  border: none;
   text-decoration: none;
   text-transform: uppercase;
   letter-spacing: 0.5px;
@@ -71,6 +83,12 @@ h1, h2, h3, h4, p, ul, li, a {
   color: #000;
   cursor: pointer;
   transition: color .2s ease-out;
+
+  &.left {
+    position: absolute;
+    top: 15px;
+    left: 20px;
+  }
 
   &:hover {
     color: #484848;

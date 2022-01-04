@@ -1,10 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
 
-</body>
-</html>
+{% block bodyContent %}
+    <div id="mm-page">
+        <div class="mm-page__inner-wrapper">
+            <a class="tertiary-btn left" href="{% url 'cart-show' %}">&#9666; Warenkorb</a>
+            {% if paid %}
+                <h3 class="thank-text">Vielen Dank für Ihren Einkauf!</h3>
+                <div class="form__btn-wrapper">
+                    <a href="{% url "landing-page" %}" class="btn leading-btn">Zur Startseite</a>
+                </div>
+            {% else %}
+                <h2>Kartenzahlung</h2>
+                <form method="POST">
+                    {% csrf_token %}
+                    <p class="pay-amount">Zu zahlen: {{ amount }} €</p>
+                    {% if not logged_in  %}
+                        <p>
+                            <label for="email-field">Email</label>
+                            <input type="text" id="email-field" name="email-field" required>
+                        </p>
+                    {% endif %}
+                    <p>
+                        <label for="card_nmbr">Kartennummer</label>
+                        <input type="text" id="card_nmbr" name="card_nmbr" pattern="^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}$" title="Kartenummer Format: 1234-5678-9123-4567" required placeholder="0000-0000-0000-0000">
+                    </p>
+                    <p>
+                        <label for="exp_date">Ablaufdatum</label>
+                        <input type="text" id="exp_date" name="exp_date" pattern="[0-9]{1,}/[0-9]{4,}" title="Monat/Jahr z.B 01/2000" required placeholder="01/2000">
+                    </p>
+                    <div class="form__btn-wrapper">
+                        <button type="submit" class="btn">Bezahlen</button>
+                    </div>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -2,24 +2,54 @@
 {% load static %}
 
 {% block bodyContent %}
-    <h2>Cart</h2>
-    {% if cart_is_empty %}
-        <p>Cart is empty</p>
-    {% else %}
-        {% for item in cart_items %}
-        {{ item.product_name }}<br/>
-        {{ item.price }} € x{{ item.quantity }}<br/>
-    {% endfor %}
-
-    total: {{ total }} €
-
-    <br><br>
-    <form method="POST">
-        {% csrf_token %}
-        <button type="submit" name="empty">Empty cart</button><br/>
-        <button type="submit" name="pay">pay</button>
-    </form>
-    {% endif %}
-
-    <a href="{% url 'landing-page' %}">zurück</a>
+    <div id="mm-page">
+        <div class="mm-page__inner-wrapper cart-page">
+            <a class="tertiary-btn back-btn" href="{% url 'landing-page' %}">&#9666; Zurück</a>
+            <h2>Warenkorb</h2>
+            {% if cart_is_empty %}
+                <p class="empty-cart-text">Ihr Warenkorb ist zurzeit leer.</p>
+                <a href="{% url 'landing-page' %}" class="secondary-btn">Weiter shoppen</a>
+            {% else %}
+                <ul id="cart-container">
+                    {% for item in cart_items %}
+                        <li class="cart-elem">
+                            <div>
+                                <div class="product-img-wrapper">
+                                    <img src="{% static item.product_img_url %}" alt="Produkt Bild">
+                                </div>
+                                <div class="product-info-wrapper">
+                                    <p class="product-name">{{ item.product_name }}</p>
+                                    <div class="product-quantity-price-wrapper">
+                                        <p>{{ item.quantity }}x</p>
+                                        <p>{{ item.price }} €</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div>
+                                <form method="POST" class="change-quantity-wrapper">
+                                    {% csrf_token %}
+                                    <div>
+                                        <button type="submit" name="change_quantity_rem" value="{{ item.product_id }}">-</button>
+                                        <button type="submit" name="change_quantity_add" value="{{ item.product_id }}">+</button>
+                                    </div>
+                                    <div>
+                                        <button type="submit" name="remove_item" value="{{ item.product_id }}">X</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+                <div class="cart-total-wrapper">
+                    <h4>Gesamt:</h4>
+                    <h4>{{ total }} €</h4>
+                </div>
+                <form method="POST" class="cart-final-btn-wrapper">
+                    {% csrf_token %}
+                    <button type="submit" name="empty" class="secondary-btn">Warenkorb leeren</button>
+                    <button type="submit" name="pay" class="btn inverted">Bezahlen</button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}

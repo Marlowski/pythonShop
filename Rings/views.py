@@ -19,7 +19,7 @@ def ring_detail(request, **kwargs):
         if request.POST.__contains__('search_input'):
             return search_script(request)
 
-        if request.POST.__contains__('add_to_cart'):
+        if "add_to_cart" in request.POST:
             add_item(request, that_one_ring)
             return render(request, 'ring-detail.html', context={'that_one_ring': that_one_ring,
                                                                 'comments_for_that_one_ring': comments,

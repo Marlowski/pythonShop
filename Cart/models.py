@@ -14,7 +14,8 @@ def add_item(request, item):
     # get existing shopping cart or create new one if non-existing
     # check if user is logged and query carts accordingly
     if request.user.id is None:
-        carts = Cart.objects.filter(user_ip=user_ip)
+        # make sure to not query carts that might have the same ip, but already have a user-elem set
+        carts = Cart.objects.filter(user_ip=user_ip, user_elem=None)
     else:
         carts = Cart.objects.filter(user_elem=request.user)
 
@@ -26,14 +27,21 @@ def add_item(request, item):
         else:
             cart = Cart.objects.create(user_elem=request.user, user_ip=user_ip)
 
-    # Add elem to cart
-    CartItem.objects.create(
-        product_id=item.id,
-        product_name=item.__str__(),
-        price=item.preis,
-        quantity=1,
-        cart=cart,
-    )
+    # check if elem already exist -> raise quantity
+    same_product_existing = CartItem.objects.filter(cart=cart, product_id=item.id).first()
+    if same_product_existing is not None:
+        same_product_existing.quantity += 1
+        same_product_existing.save()
+    else:
+        # Add elem to cart
+        CartItem.objects.create(
+            product_id=item.id,
+            product_name=item.__str__(),
+            product_img_url=item.product_img_url,
+            price=item.preis,
+            quantity=1,
+            cart=cart,
+        )
 
 
 class Cart(models.Model):
@@ -58,14 +66,17 @@ class Cart(models.Model):
 class CartItem(models.Model):
     product_id = models.IntegerField()
     product_name = models.CharField(max_length=1000)
+    product_img_url = models.CharField(max_length=1000)
     price = models.DecimalField(decimal_places=2, max_digits=10)
     quantity = models.IntegerField(default=1)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
 
 
 class Payment(models.Model):
+    user_elem = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, null=True)
+    email = models.CharField(max_length=200, null=True)
     credit_card_number = models.CharField(max_length=19)  # 1234 5678 1234 5678
     expiry_date = models.CharField(max_length=7)  # 12/2022
+    items_id = models.CharField(max_length=3000)
     amount = models.DecimalField(decimal_places=2, max_digits=10)
     timestamp = models.DateTimeField(default=timezone.now)
-    user_type = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
