@@ -11,16 +11,11 @@ class Ring(models.Model):
     ]
 
     bezeichnung = models.CharField(max_length=100)
-
     preis = models.DecimalField(max_digits=7, decimal_places=2)
-
-    material = models.CharField(max_length=2,
-                                choices=RING_MATERIALS,
-                                )
-
+    material = models.CharField(max_length=2, choices=RING_MATERIALS)
     ring_Breite = models.CharField(max_length=5)
-
     product_img_url = models.CharField(max_length=300)
+    description = models.CharField(max_length=1000)
 
     class Meta:
         ordering = ['bezeichnung', '-preis']
@@ -31,42 +26,20 @@ class Ring(models.Model):
         return_string = self.bezeichnung + ': ' + self.material
         return return_string
 
-    def get_upvotes(self):
-        upvotes = Vote.objects.filter(up_or_down='U',
-                                      ring=self)
-        return upvotes
+    def get_rating(self):
+        rating_list = Rating.objects.filter(ring=self)
+        average_rating = 0
 
-    def get_upvotes_count(self):
-        return len(self.get_upvotes())
+        if len(rating_list) == 0:
+            return average_rating
 
-    def get_downvotes(self):
-        downvotes = Vote.objects.filter(up_or_down='D',
-                                        ring=self)
-        return downvotes
+        for elem in rating_list:
+            average_rating += int(elem.rating)
 
-    def get_downvotes_count(self):
-        return len(self.get_downvotes())
+        return round(average_rating / len(rating_list))
 
-    def get_average_upvote(self):
-        if len(self.get_upvotes()) != 0:
-            # return % value
-            return round(len(self.get_upvotes()) / (len(self.get_upvotes()) + len(self.get_downvotes())) * 100)
-        else:
-            # only downvotes
-            if len(self.get_downvotes()) != 0:
-                return 0
-            # no votes yet
-            else:
-                return None
-
-    def vote(self, user, up_or_down):
-        u_or_d = 'U'
-        if up_or_down == 'down':
-            u_or_d = 'D'
-        vote = Vote.objects.create(up_or_down=u_or_d,
-                                   user=user,
-                                   ring=self
-                                   )
+    def get_amount_of_ratings(self):
+        return len(Rating.objects.filter(ring=self))
 
     def __str__(self):
         return self.bezeichnung + ' (' + self.material + ')'
@@ -99,18 +72,8 @@ class Comment(models.Model):
         return self.get_comment_prefix() + ' (' + self.user.username + ' / ' + str(self.timestamp) + ')'
 
 
-class Vote(models.Model):
-    VOTE_TYPES = [
-        ('U', 'up'),
-        ('D', 'down'),
-    ]
-
-    up_or_down = models.CharField(max_length=1,
-                                  choices=VOTE_TYPES,
-                                  )
+class Rating(models.Model):
+    rating = models.IntegerField()
     timestamp = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     ring = models.ForeignKey(Ring, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.up_or_down + ' on ' + self.ring.bezeichnung + ' by ' + self.user.username

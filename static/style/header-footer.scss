@@ -75,6 +75,21 @@ header {
           width: 25px;
         }
       }
+
+      #search-select {
+        position: absolute;
+        height: 100%;
+        border-radius: 50px;
+        border: none;
+        width: 17px;
+        right: 33px;
+        cursor: pointer;
+        font-size: 0;
+
+        option {
+          font-size: 1rem;
+        }
+      }
     }
   }
 

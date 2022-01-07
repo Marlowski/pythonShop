@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'UserManagement.apps.UsermanagementConfig',
     'Rings.apps.RingsConfig',
     'Cart.apps.CartConfig',
+    'reportlab',
 ]
 
 MIDDLEWARE = [

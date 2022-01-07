@@ -36,6 +36,8 @@
       @include mixins.flex-box($flex-direction: column, $align-items: flex-start);
 
       .product-name {
+        color: #000000;
+        text-decoration: none;
         max-width: 300px;
       }
 
@@ -55,37 +57,33 @@
 
     & > div:last-of-type {
       min-width: 90px;
+      @include mixins.flex-box($justify-content: space-between);
 
-      form {
-        @include mixins.flex-box($justify-content: space-between);
+      & > div {
+        button {
+          border: none;
+          border-radius: 50%;
+          background-color: #c6c6c6;
+          color: #ffffff;
+          width: 25px;
+          height: 25px;
+          text-align: center;
+          cursor: pointer;
+          font-weight: 700;
+          transition: background-color .2s ease-out;
 
-        & > div {
-          button {
-            border: none;
-            border-radius: 50%;
-            background-color: #c6c6c6;
-            color: #ffffff;
-            width: 25px;
-            height: 25px;
-            text-align: center;
-            cursor: pointer;
-            font-weight: 700;
-            transition: background-color .2s ease-out;
-
-            &:hover {
-              background-color: var(--DarkColor);
-            }
-          }
-        }
-
-        & > div:last-of-type {
-          button {
-            font-family: Arial, sans-serif;
-            font-weight: 500;
+          &:hover {
+            background-color: var(--DarkColor);
           }
         }
       }
 
+      & > div:last-of-type {
+        button {
+          font-family: Arial, sans-serif;
+          font-weight: 500;
+        }
+      }
     }
 
   }

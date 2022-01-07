@@ -2,64 +2,107 @@
 {% load static %}
 
 {% block bodyContent %}
-<h2>Ring detail</h2>
-    <table>
-    <tr>
-        <td><img src="{% static that_one_ring.product_img_url %}" alt="Produkt Bild"></td>
-    </tr>
-        <tr>
-            <td><b>Artikelnummer :</b></td>
-            <td>{{ that_one_ring.id }}</td>
-        </tr>
-    <tr>
-        <td><b>Bezeichnung :</b></td>
-        <td>{{ that_one_ring.bezeichnung }}<br></td>
-    </tr>
-    <tr>
-        <td><b>Preis :</b></td>
-        <td>{{ that_one_ring.preis }} € <br></td>
-    </tr>
-    <tr>
-        <td><b>Material :</b></td>
-        <td>{{ that_one_ring.material }}<br></td>
-    </tr>
-    <tr>
-        <td><b>Ringbreite :</b></td>
-        <td>{{ that_one_ring.ring_Breite }}<br></td>
-    </tr>
-    </table>
-    <span style="color: darkgreen">{{ upvotes }}</span>
-    {% if user.is_authenticated %}
-        <a href="{% url 'ring-vote' that_one_ring.id 'up' %}" style="text-decoration: none">
-           U
-        </a>
-    {% endif %}&nbsp;&nbsp;&nbsp;
-
-    <span style="color: crimson">{{ downvotes }}</span>
-    {% if user.is_authenticated %}
-        <a href="{% url 'ring-vote' that_one_ring.id 'down' %}" style="text-decoration: none">
-            D
-        </a>
+    {% if downvotes %}
+    
+    {% endif %} 
+    <div id="pp-page">
+    {% if user.is_authenticated and already_rated == False %}
+        <div class="product-rating-wrapper" data-rating-value="0">
+            <div class="star-elem star-1">
+                <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24" x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg>
+            </div>
+            <div class="star-elem star-2">
+                <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24" x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg>
+            </div>
+            <div class="star-elem star-3">
+                <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24" x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg>
+            </div>
+            <div class="star-elem star-4">
+                <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24" x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg>
+            </div>
+            <div class="star-elem star-5">
+                <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24" x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg>
+            </div>
+        </div>
+        <div class="product-rating-submit-wrapper">
+            <button class="btn">Bewerten</button>
+        </div>
     {% endif %}
-    <br><br>
+        <div class="total-product-rating-container" data-average-rating="{{ rating }}">
+            <div class="total-star-elem total-1">
+                <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24" x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg>
+            </div>
+            <div class="total-star-elem total-2">
+                <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24" x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg>
+            </div>
+            <div class="total-star-elem total-3">
+                <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24" x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg>
+            </div>
+            <div class="total-star-elem total-4">
+                <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24" x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg>
+            </div>
+            <div class="total-star-elem total-5">
+                <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24" x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg>
+            </div>
+            <p class="total-rating-amount">({{ rating_amount }})</p>
+        </div>
 
-    {% if user.is_authenticated %}
-        {% for comment in comments_for_that_one_ring %}
-            <b style="color: darkgreen">{{ comment.user.username }} on {{ comment.timestamp }}</b><br>
-            {{ comment.text }}<br><br>
-        {% endfor %}
-        <br>
+        <h2>Ring detail</h2>
+        <table>
+        <tr>
+            <td><img src="{% static ring_elem.product_img_url %}" alt="Produkt Bild"></td>
+        </tr>
+            <tr>
+                <td><b>Artikelnummer :</b></td>
+                <td>{{ ring_elem.id }}</td>
+            </tr>
+        <tr>
+            <td><b>Bezeichnung :</b></td>
+            <td>{{ ring_elem.bezeichnung }}<br></td>
+        </tr>
+        <tr>
+            <td><b>Preis :</b></td>
+            <td>{{ ring_elem.preis }} € <br></td>
+        </tr>
+        <tr>
+            <td><b>Material :</b></td>
+            <td>{{ ring_elem.material }}<br></td>
+        </tr>
+            <tr>
+            <td><b>Beschreibung :</b></td>
+            <td>{{ ring_elem.description }}<br></td>
+        </tr>
+        <tr>
+            <td><b>Ringbreite :</b></td>
+            <td>{{ ring_elem.ring_Breite }}<br></td>
+        </tr>
+        <tr>
+            <td>
+                <form method="POST">
+                    {% csrf_token %}
+                    <button type="submit" name="save_pdf">Produkt als Pdf speichern</button>
+                </form>
+            </td>
+        </tr>
+        </table>
+        {% if user.is_authenticated %}
+            {% for comment in comments %}
+                <b style="color: darkgreen">{{ comment.user.username }} on {{ comment.timestamp }}</b><br>
+                {{ comment.text }}<br><br>
+            {% endfor %}
+            <br>
 
-        <b style="color: aqua">Do you have a comment for this ring?</b><br>
+            <b style="color: aqua">Do you have a comment for this ring?</b><br>
+            <form method="POST">
+                {% csrf_token %}
+                {{ comment_form.as_p }}
+                <button type="submit">Add comment</button>
+            </form>
+            <br>
+        {% endif %}
         <form method="POST">
             {% csrf_token %}
-            {{ comment_form.as_p }}
-            <button type="submit">Add comment</button>
+            <button type="submit" name="add_to_cart">Add to Cart</button>
         </form>
-        <br>
-    {% endif %}
-    <form method="POST">
-        {% csrf_token %}
-        <button type="submit" name="add_to_cart">Add to Cart</button>
-    </form>
+    </div>
 {% endblock %}

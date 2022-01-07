@@ -18,7 +18,7 @@
                                     <img src="{% static item.product_img_url %}" alt="Produkt Bild">
                                 </div>
                                 <div class="product-info-wrapper">
-                                    <p class="product-name">{{ item.product_name }}</p>
+                                    <a href="{% url 'ring_detail' pk=item.product_id %}" class="product-name">{{ item.product_name }}</a>
                                     <div class="product-quantity-price-wrapper">
                                         <p>{{ item.quantity }}x</p>
                                         <p>{{ item.price }} €</p>
@@ -26,16 +26,13 @@
                                 </div>
                             </div>
                             <div>
-                                <form method="POST" class="change-quantity-wrapper">
-                                    {% csrf_token %}
-                                    <div>
-                                        <button type="submit" name="change_quantity_rem" value="{{ item.product_id }}">-</button>
-                                        <button type="submit" name="change_quantity_add" value="{{ item.product_id }}">+</button>
-                                    </div>
-                                    <div>
-                                        <button type="submit" name="remove_item" value="{{ item.product_id }}">X</button>
-                                    </div>
-                                </form>
+                                <div>
+                                    <button class="cq_rem_btn" name="change_quantity_rem" value="{{ item.product_id }}">-</button>
+                                    <button class="cq_add_btn" name="change_quantity_add" value="{{ item.product_id }}">+</button>
+                                </div>
+                                <div>
+                                    <button class="remove_item_btn" name="remove_item" value="{{ item.product_id }}">X</button>
+                                </div>
                             </div>
                         </li>
                     {% endfor %}

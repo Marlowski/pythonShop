@@ -71,8 +71,28 @@
       }
 
      .list__rating-wrapper {
-       color: var(--Green);
+       @include mixins.flex-box();
        margin-top: 3px;
+
+       .total-product-rating-container {
+         width: 100px;
+         position: relative;
+
+         .total-star-elem {
+           cursor: pointer;
+           
+           svg {
+             width: 20px;
+           }
+         }
+
+         .total-rating-amount {
+           position: absolute;
+           left: calc(100% + 2px);
+           bottom: 8px;
+           margin: 0;
+         }
+       }
      }
     }
   }

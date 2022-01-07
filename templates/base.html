@@ -26,6 +26,12 @@
             <form id="search-container" method="POST">
                 {% csrf_token %}
                 <label for="searchbar">Suche</label>
+                <select name="search-type" id="search-select">
+                    <option value="info" disabled>Suchen nach:</option>
+                    <option value="default" selected>Name, SDK</option>
+                    <option value="desc">Beschreibung</option>
+                    <option value="rating">Bewertung</option>
+                </select>
                 <input type="text" placeholder="Suche" name="search_input" id="searchbar">
                 <button type="submit"><img src="{% static "assets/icons/search.png" %}" alt="Suchen"></button>
             </form>

@@ -192,6 +192,19 @@ header .header__elem-wrapper #search-container button {
 header .header__elem-wrapper #search-container button img {
   width: 25px;
 }
+header .header__elem-wrapper #search-container #search-select {
+  position: absolute;
+  height: 100%;
+  border-radius: 50px;
+  border: none;
+  width: 17px;
+  right: 33px;
+  cursor: pointer;
+  font-size: 0;
+}
+header .header__elem-wrapper #search-container #search-select option {
+  font-size: 1rem;
+}
 header .header__navbar {
   padding: 7px 0;
   background: var(--Green);
@@ -555,8 +568,27 @@ header .header__navbar ul li a {
   margin-left: 3px;
 }
 .list__product-list-container li a .list__rating-wrapper {
-  color: var(--Green);
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
   margin-top: 3px;
+}
+.list__product-list-container li a .list__rating-wrapper .total-product-rating-container {
+  width: 100px;
+  position: relative;
+}
+.list__product-list-container li a .list__rating-wrapper .total-product-rating-container .total-star-elem {
+  cursor: pointer;
+}
+.list__product-list-container li a .list__rating-wrapper .total-product-rating-container .total-star-elem svg {
+  width: 20px;
+}
+.list__product-list-container li a .list__rating-wrapper .total-product-rating-container .total-rating-amount {
+  position: absolute;
+  left: calc(100% + 2px);
+  bottom: 8px;
+  margin: 0;
 }
 
 .list__no-result-text {
@@ -637,6 +669,8 @@ header .header__navbar ul li a {
   align-items: flex-start;
 }
 #cart-container .cart-elem .product-info-wrapper .product-name {
+  color: #000000;
+  text-decoration: none;
   max-width: 300px;
 }
 #cart-container .cart-elem .product-info-wrapper .product-quantity-price-wrapper {
@@ -654,14 +688,12 @@ header .header__navbar ul li a {
 }
 #cart-container .cart-elem > div:last-of-type {
   min-width: 90px;
-}
-#cart-container .cart-elem > div:last-of-type form {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-between;
   align-items: center;
 }
-#cart-container .cart-elem > div:last-of-type form > div button {
+#cart-container .cart-elem > div:last-of-type > div button {
   border: none;
   border-radius: 50%;
   background-color: #c6c6c6;
@@ -673,10 +705,10 @@ header .header__navbar ul li a {
   font-weight: 700;
   transition: background-color 0.2s ease-out;
 }
-#cart-container .cart-elem > div:last-of-type form > div button:hover {
+#cart-container .cart-elem > div:last-of-type > div button:hover {
   background-color: var(--DarkColor);
 }
-#cart-container .cart-elem > div:last-of-type form > div:last-of-type button {
+#cart-container .cart-elem > div:last-of-type > div:last-of-type button {
   font-family: Arial, sans-serif;
   font-weight: 500;
 }
@@ -761,6 +793,55 @@ label[for=email-field] {
   width: 100%;
   text-align: center;
   margin-bottom: 15px;
+}
+
+#pp-page {
+  padding: 50px 70px;
+}
+#pp-page img {
+  max-width: 100px;
+}
+
+.product-rating-wrapper, .total-product-rating-container {
+  width: 120px;
+  margin: 10px 0;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+.product-rating-wrapper .star-elem, .product-rating-wrapper .total-star-elem, .total-product-rating-container .star-elem, .total-product-rating-container .total-star-elem {
+  cursor: pointer;
+}
+.product-rating-wrapper .star-elem svg, .product-rating-wrapper .total-star-elem svg, .total-product-rating-container .star-elem svg, .total-product-rating-container .total-star-elem svg {
+  fill: none;
+  stroke: #fba200;
+  stroke-width: 1.5px;
+}
+.product-rating-wrapper .star-elem svg rect, .product-rating-wrapper .total-star-elem svg rect, .total-product-rating-container .star-elem svg rect, .total-product-rating-container .total-star-elem svg rect {
+  stroke: none;
+}
+.product-rating-wrapper .star-elem.selected svg, .product-rating-wrapper .total-star-elem.selected svg, .total-product-rating-container .star-elem.selected svg, .total-product-rating-container .total-star-elem.selected svg {
+  fill: #fba200 !important;
+}
+
+.total-product-rating-container {
+  width: 150px;
+}
+.total-product-rating-container .total-star-elem {
+  cursor: default;
+}
+.total-product-rating-container p {
+  margin-left: 3px;
+  margin-top: -10px;
+  font-size: 0.9rem;
+}
+
+.product-rating-submit-wrapper {
+  min-height: 30px;
+}
+.product-rating-submit-wrapper button {
+  display: none;
 }
 
 /*# sourceMappingURL=style.css.map */
