@@ -1,0 +1,57 @@
+@use  "../mixins";
+
+//temp settings for better workflow
+#pp-page {
+  padding: 50px 70px;
+
+  img {
+    max-width: 100px;
+  }
+}
+
+//product rating
+.product-rating-wrapper, .total-product-rating-container {
+  width: 120px;
+  margin: 10px 0;
+  @include mixins.flex-box($justify-content: flex-start);
+
+  .star-elem, .total-star-elem {
+    cursor: pointer;
+
+    svg {
+      fill: none;
+      stroke: #fba200;
+      stroke-width: 1.5px;
+
+      rect {
+        stroke: none;
+      }
+    }
+
+    &.selected svg {
+      fill: #fba200 !important;
+    }
+  }
+}
+
+.total-product-rating-container {
+  width: 150px;
+
+  .total-star-elem {
+    cursor: default;
+  }
+
+  p {
+    margin-left: 3px;
+    margin-top: -10px;
+    font-size: .9rem;
+  }
+}
+
+.product-rating-submit-wrapper {
+  min-height: 30px;
+
+  button {
+    display: none;
+  }
+}
