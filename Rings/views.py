@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
-
 from Cart.models import add_item
-from static.script.search import search_script
+from static.script.search import search_script, search_range_rating
 from static.script.utility import create_pdf
 from .forms import CommentForm
 from .models import Ring, Comment, Rating
@@ -106,8 +105,9 @@ def rings_list(request, **kwargs):
         search_input = url_data[1]
 
         if category == "rating":
-            # TODO: wait for proper rating implementation
-            product_query = Ring.objects.filter(bezeichnung__contains=search_input)
+            product_query = search_range_rating(search_input)
+            search_input = search_input + " Sterne"
+
         elif category == "desc":
             product_query = Ring.objects.filter(description__contains=search_input)
         else:

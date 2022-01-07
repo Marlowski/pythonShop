@@ -82,12 +82,30 @@ header {
         border-radius: 50px;
         border: none;
         width: 17px;
-        right: 33px;
+        right: 35px;
         cursor: pointer;
         font-size: 0;
 
         option {
           font-size: 1rem;
+        }
+      }
+
+      .select-icon-preview {
+        @include mixins.flex-box();
+        position: absolute;
+        height: 100%;
+        left: 180px;
+        top: -5px;
+
+        img {
+          display: none;
+          width: 9px;
+          filter: invert(15%);
+
+          &.shown {
+            display: block;
+          }
         }
       }
     }

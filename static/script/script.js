@@ -13,20 +13,30 @@ $(function() {
    }
 
    //search select manager
+   //assure that after refresh default is selected
+   $('#search-select').val("default").prop('selected', true);
    $('#search-select').on('change', function () {
       let placeholderText;
       switch($('#search-select').val()) {
          case "default":
             placeholderText = "Suche";
+            $('.sip-star').removeClass('shown');
+            $('.sip-desc').removeClass('shown');
             break;
          case "desc":
             placeholderText = "Suche (Beschreibung)";
+            $('.sip-star').removeClass('shown');
+            $('.sip-desc').addClass('shown');
             break;
          case "rating":
-            placeholderText = "Suche (Bewertungen)";
+            placeholderText = "Suche (Rating (3, 2-5))";
+            $('.sip-star').addClass('shown');
+            $('.sip-desc').removeClass('shown');
             break;
          default:
             placeholderText = "Suche";
+            $('.sip-star').removeClass('shown');
+            $('.sip-desc').removeClass('shown');
       }
       $('#searchbar').attr("placeholder", placeholderText);
    });
@@ -74,11 +84,14 @@ $(function() {
    });
 
    //set total stars on load
-   let rating = parseInt($('.total-product-rating-container').attr('data-average-rating'));
-   for(let i=0; i < rating; i++) {
-      let className = ".total-" + i;
-      $(className).addClass('selected');
-   }
+   $('.total-product-rating-container').each(function () {
+      let rating = parseInt($(this).attr('data-average-rating'));
+
+      for(let i=1; i <= rating; i++) {
+         let className = ".total-" + i;
+         $(this).find(className).addClass('selected');
+      }
+   });
 
    // Cart ajax handler
    //done in javascript to keep scroll position after refresh and therefor make it easy to add, remove etc. items from cart

@@ -198,12 +198,30 @@ header .header__elem-wrapper #search-container #search-select {
   border-radius: 50px;
   border: none;
   width: 17px;
-  right: 33px;
+  right: 35px;
   cursor: pointer;
   font-size: 0;
 }
 header .header__elem-wrapper #search-container #search-select option {
   font-size: 1rem;
+}
+header .header__elem-wrapper #search-container .select-icon-preview {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  height: 100%;
+  left: 180px;
+  top: -5px;
+}
+header .header__elem-wrapper #search-container .select-icon-preview img {
+  display: none;
+  width: 9px;
+  filter: invert(15%);
+}
+header .header__elem-wrapper #search-container .select-icon-preview img.shown {
+  display: block;
 }
 header .header__navbar {
   padding: 7px 0;
