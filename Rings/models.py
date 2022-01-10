@@ -13,7 +13,7 @@ class Ring(models.Model):
     bezeichnung = models.CharField(max_length=100)
     preis = models.DecimalField(max_digits=7, decimal_places=2)
     material = models.CharField(max_length=2, choices=RING_MATERIALS)
-    ring_Breite = models.CharField(max_length=5)
+    ring_size = models.CharField(max_length=5)
     product_img_url = models.CharField(max_length=300)
     description = models.CharField(max_length=1000)
 
@@ -42,10 +42,10 @@ class Ring(models.Model):
         return len(Rating.objects.filter(ring=self))
 
     def __str__(self):
-        return self.bezeichnung + ' (' + self.material + ')'
+        return self.bezeichnung + ' (' + self.get_material_display() + ')'
 
     def __repr__(self):
-        return self.get_full_name() + ' / ' + str(self.preis) + ' / ' + str(self.ring_Breite)
+        return self.get_full_name() + ' / ' + str(self.preis) + ' / ' + str(self.ring_size)
 
 
 class Comment(models.Model):
@@ -77,3 +77,15 @@ class Rating(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     ring = models.ForeignKey(Ring, on_delete=models.CASCADE)
+    comment = models.CharField(max_length=2500)
+
+
+class RatingEvaluation(models.Model):
+    EVALUATION = [
+        ('POS', 'helpful'),
+        ('NEG', 'not helpful'),
+        ('REP', 'reported')
+    ]
+    evaluation = models.CharField(max_length=3, choices=EVALUATION)
+    rating = models.ForeignKey(Rating, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)

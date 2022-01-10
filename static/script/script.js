@@ -21,22 +21,22 @@ $(function() {
          case "default":
             placeholderText = "Suche";
             $('.sip-star').removeClass('shown');
-            $('.sip-desc').removeClass('shown');
+            $('.sip-size').removeClass('shown');
             break;
-         case "desc":
-            placeholderText = "Suche (Beschreibung)";
+         case "size":
+            placeholderText = "Suche (Ringbreite)";
             $('.sip-star').removeClass('shown');
-            $('.sip-desc').addClass('shown');
+            $('.sip-size').addClass('shown');
             break;
          case "rating":
             placeholderText = "Suche (Rating (3, 2-5))";
             $('.sip-star').addClass('shown');
-            $('.sip-desc').removeClass('shown');
+            $('.sip-size').removeClass('shown');
             break;
          default:
             placeholderText = "Suche";
             $('.sip-star').removeClass('shown');
-            $('.sip-desc').removeClass('shown');
+            $('.sip-size').removeClass('shown');
       }
       $('#searchbar').attr("placeholder", placeholderText);
    });
@@ -57,10 +57,10 @@ $(function() {
      }
    );
 
-   //click starr rating (user selected start amount)
+   //click star rating (user selected start amount)
    $('.star-elem').on('click', function () {
       //show send button
-      $('.product-rating-submit-wrapper button').css('display', 'block');
+      $('.product-rating-submit-wrapper').slideDown();
 
       //make sure everything is unselected before setting new select amount
       $('.star-elem').removeClass('selected');

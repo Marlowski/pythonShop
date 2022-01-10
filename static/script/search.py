@@ -17,8 +17,10 @@ def search_script(request):
         if len(search_input) <= 0 or search_type == "info":
             return HttpResponseRedirect(request.path_info)
 
-        if search_type == "desc":
-            search_results = Ring.objects.filter(description__contains=search_input)
+        if search_type == "size":
+            if search_input.__contains__("mm"):
+                search_input = search_input.replace(" ", "").split("mm")[0]
+            search_results = Ring.objects.filter(ring_size__contains=search_input)
 
         elif search_type == "rating":
             search_results = search_range_rating(search_input)
@@ -55,6 +57,10 @@ def search_range_rating(search_input):
                 matching_items.append(ring)
 
     else:
+        # check if input is proper int
+        if search_input.isnumeric() is False:
+            return []
+
         # single value search
         for ring in ring_list:
             if ring.get_rating() == int(search_input):

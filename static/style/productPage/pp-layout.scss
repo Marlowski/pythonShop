@@ -2,10 +2,98 @@
 
 //temp settings for better workflow
 #pp-page {
-  padding: 50px 70px;
+  margin: 20px 0;
+  @include mixins.flex-box($align-items: flex-start);
 
-  img {
-    max-width: 100px;
+  & > div:first-of-type {
+    flex: 1 1 25em;
+    min-width: 50%;
+    min-height: calc(100vh - 136.65px);
+    padding: 0 25px 50px 20px;
+    @include mixins.flex-box($flex-direction: column, $justify-content: space-around, $align-items: flex-start);
+
+    h2 {
+      font-family: "Playfair Display", serif;
+      font-weight: 100;
+      font-size: 3rem;
+      line-height: 50px;
+      margin-bottom: 12px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .total-product-rating-container {
+      position: relative;
+      z-index: 2;
+    }
+
+    .pp-img-wrapper {
+      @include mixins.flex-box();
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 700px;
+      margin-top: -50px;
+
+      img {
+        max-width: 600px;
+        width: 100%;
+      }
+    }
+  }
+
+  & > div:nth-of-type(2) {
+    flex: 1 1 25em;
+    min-width: 50%;
+    @include mixins.flex-box($flex-direction: column);
+    min-height: calc(100vh - 136.65px);
+
+    .padding-wrapper {
+      background-color: var(--Rose);
+      width: 75%;
+      max-width: 575px;
+      padding: 15px 20px;
+      min-height: calc(80vh - 136.65px);
+      @include mixins.flex-box($flex-direction: column, $align-items: flex-start);
+
+      ul {
+        margin-bottom: 20px;
+
+        li {
+          @include mixins.flex-box($justify-content: flex-start);
+          margin: 7px 0;
+
+          p {
+            font-size: 1.2rem;
+            font-weight: 100;
+            line-height: 25px;
+
+            &:first-of-type {
+              font-weight: 700;
+              text-transform: uppercase;
+              letter-spacing: .8px;
+              margin-right: 7px;
+            }
+          }
+          &[data-name="desc-field"] {
+            margin-top: 20px;
+
+            p:first-of-type {
+              width: 100%;
+            }
+
+            p:last-of-type {
+              max-width: 500px;
+            }
+          }
+        }
+      }
+    }
+
+  }
+
+  .product-rating-main-container {
+    width: 100%;
   }
 }
 
@@ -49,9 +137,24 @@
 }
 
 .product-rating-submit-wrapper {
-  min-height: 30px;
+  display: none;
+}
 
-  button {
-    display: none;
+@media screen and (max-width: 400px) {
+  #pp-page > div:first-of-type {
+    h2 {
+      font-size: 2.5rem;
+    }
+
+    .pp-img-wrapper {
+      margin-top: -10px;
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #pp-page > div:nth-of-type(2) .padding-wrapper {
+    width: 95%;
+    min-height: calc(100vh - 136.65px);
   }
 }

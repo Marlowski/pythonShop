@@ -11,7 +11,6 @@ def ring_detail(request, **kwargs):
     ring_elem = Ring.objects.get(id=ring_id)
     comments = Comment.objects.filter(ring=ring_elem)
 
-    # Add comment
     if request.method == 'POST':
         # Check if POST req. comes from search form
         if request.POST.__contains__('search_input'):
@@ -61,14 +60,6 @@ def ring_detail(request, **kwargs):
                        'already_rated': True,
                        'comment_form': CommentForm}
             return render(request, 'ring-detail.html', context)
-
-        form = CommentForm(request.POST)
-        form.instance.user = request.user
-        form.instance.ring = ring_elem
-        if form.is_valid():
-            form.save()
-        else:
-            print(form.errors)
     # /end if==POST
 
     context = {'ring_elem': ring_elem,
@@ -108,8 +99,9 @@ def rings_list(request, **kwargs):
             product_query = search_range_rating(search_input)
             search_input = search_input + " Sterne"
 
-        elif category == "desc":
-            product_query = Ring.objects.filter(description__contains=search_input)
+        elif category == "size":
+            product_query = Ring.objects.filter(ring_size__contains=search_input)
+            search_input = search_input + " mm"
         else:
             product_query = Ring.objects.filter(bezeichnung__contains=search_input)
 

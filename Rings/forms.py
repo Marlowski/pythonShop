@@ -1,15 +1,5 @@
 from django import forms
-from .models import Ring, Comment
-
-
-class RingForm(forms.ModelForm):
-    class Meta:
-        model = Ring
-        fields = ['bezeichnung', 'preis', 'material', 'ring_Breite']
-        widgets = {
-            'genre': forms.Select(choices=Ring.RING_MATERIALS),
-            'user': forms.HiddenInput(),
-        }
+from .models import Comment
 
 
 class CommentForm(forms.ModelForm):
