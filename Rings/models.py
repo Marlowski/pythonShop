@@ -1,4 +1,4 @@
-from datetime import date
+import locale
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -41,35 +41,14 @@ class Ring(models.Model):
     def get_amount_of_ratings(self):
         return len(Rating.objects.filter(ring=self))
 
+    def get_rating_objects(self):
+        return Rating.objects.filter(ring=self)
+
     def __str__(self):
         return self.bezeichnung + ' (' + self.get_material_display() + ')'
 
     def __repr__(self):
         return self.get_full_name() + ' / ' + str(self.preis) + ' / ' + str(self.ring_size)
-
-
-class Comment(models.Model):
-    text = models.TextField(max_length=500)
-    timestamp = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    ring = models.ForeignKey(Ring, on_delete=models.CASCADE)
-
-    class Meta:
-        ordering = ['timestamp']
-        verbose_name = 'Comment'
-        verbose_name_plural = 'Comments'
-
-    def get_comment_prefix(self):
-        if len(self.text) > 50:
-            return self.text[:50] + '...'
-        else:
-            return self.text
-
-    def __str__(self):
-        return self.get_comment_prefix() + ' (' + self.user.username + ')'
-
-    def __repr__(self):
-        return self.get_comment_prefix() + ' (' + self.user.username + ' / ' + str(self.timestamp) + ')'
 
 
 class Rating(models.Model):
@@ -78,6 +57,16 @@ class Rating(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     ring = models.ForeignKey(Ring, on_delete=models.CASCADE)
     comment = models.CharField(max_length=2500)
+
+    def get_formatted_date(self):
+        locale.setlocale(locale.LC_ALL, 'de_DE')
+        return self.timestamp.strftime("%d. %B, %Y")
+
+    def get_pos_evaluation_amount(self):
+        return len(RatingEvaluation.objects.filter(rating=self.id, evaluation="POS"))
+
+    def get_neg_evaluation_amount(self):
+        return len(RatingEvaluation.objects.filter(rating=self.id, evaluation="NEG"))
 
 
 class RatingEvaluation(models.Model):

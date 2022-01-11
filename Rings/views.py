@@ -2,14 +2,12 @@ from django.shortcuts import render, redirect
 from Cart.models import add_item
 from static.script.search import search_script, search_range_rating
 from static.script.utility import create_pdf
-from .forms import CommentForm
-from .models import Ring, Comment, Rating
+from .models import Ring, Rating, RatingEvaluation
 
 
 def ring_detail(request, **kwargs):
     ring_id = kwargs['pk']
     ring_elem = Ring.objects.get(id=ring_id)
-    comments = Comment.objects.filter(ring=ring_elem)
 
     if request.method == 'POST':
         # Check if POST req. comes from search form
@@ -23,11 +21,11 @@ def ring_detail(request, **kwargs):
             add_item(request, ring_elem)
             return render(request, 'ring-detail.html',
                           context={'ring_elem': ring_elem,
-                                   'comments': comments,
                                    'rating': ring_elem.get_rating(),
                                    'rating_amount': ring_elem.get_amount_of_ratings(),
-                                   'already_rated': check_if_user_rated(request, ring_elem),
-                                   'comment_form': CommentForm})
+                                   'rating_objects': ring_elem.get_rating_objects(),
+                                   'already_rated': check_if_user_rated(request, ring_elem)
+                                   })
 
         # star rating handler
         elif request.POST.__contains__('rating'):
@@ -44,30 +42,69 @@ def ring_detail(request, **kwargs):
             # check if user already rated
             if check_if_user_rated(request, ring_elem):
                 context = {'ring_elem': ring_elem,
-                           'comments': comments,
                            'rating': ring_elem.get_rating(),
                            'rating_amount': ring_elem.get_amount_of_ratings(),
+                           'rating_objects': ring_elem.get_rating_objects(),
                            'already_rated': True,
-                           'comment_form': CommentForm}
+                           }
                 return render(request, 'ring-detail.html', context)
 
+            # get comment for rating
+            comment = request.POST['comment']
+
             # create new rating (ajax will reload)
-            Rating.objects.create(rating=rating, user=request.user, ring=ring_elem)
+            Rating.objects.create(rating=rating, comment=comment, user=request.user, ring=ring_elem)
             context = {'ring_elem': ring_elem,
-                       'comments': comments,
                        'rating': ring_elem.get_rating(),
                        'rating_amount': ring_elem.get_amount_of_ratings(),
+                       'rating_objects': ring_elem.get_rating_objects(),
                        'already_rated': True,
-                       'comment_form': CommentForm}
+                       }
+            return render(request, 'ring-detail.html', context)
+
+        # delete or edit rating handler
+        elif request.POST.__contains__('action'):
+            action = request.POST['action']
+            rating_object = Rating.objects.get(id=request.POST['rating_id'])
+
+            if action == "delete":
+                # check if userid matches ratings creator id
+                # TODO: also check for role, if admin is trying to delete, let through aswell
+                if request.user.id == rating_object.user_id:
+                    rating_object.delete()
+
+            elif action == "edit":
+                new_text = request.POST['comment']
+                if request.user.id == rating_object.user_id:
+                    rating_object.comment = new_text
+                    rating_object.save()
+
+            elif action == "evaluate":
+                evaluation = request.POST['evaluation']
+                # check if already evaluated for certain evaluation (cant evaluate as helpful twice)
+                existing_ev_amount = 0
+                if evaluation != "REP":
+                    all_evs = RatingEvaluation.objects.filter(user=request.user)
+                    existing_ev_amount = len(all_evs.exclude(evaluation="REP"))
+
+                if existing_ev_amount == 0 and request.user.id is not None:
+                    RatingEvaluation.objects.create(evaluation=evaluation, user=request.user, rating=rating_object)
+
+            context = {'ring_elem': ring_elem,
+                       'rating': ring_elem.get_rating(),
+                       'rating_amount': ring_elem.get_amount_of_ratings(),
+                       'rating_objects': ring_elem.get_rating_objects(),
+                       'already_rated': check_if_user_rated(request, ring_elem),
+                       }
             return render(request, 'ring-detail.html', context)
     # /end if==POST
 
     context = {'ring_elem': ring_elem,
-               'comments': comments,
                'rating': ring_elem.get_rating(),
                'rating_amount': ring_elem.get_amount_of_ratings(),
+               'rating_objects': ring_elem.get_rating_objects(),
                'already_rated': check_if_user_rated(request, ring_elem),
-               'comment_form': CommentForm}
+               }
     return render(request, 'ring-detail.html', context)
 
 
@@ -75,13 +112,6 @@ def check_if_user_rated(request, ring_elem):
     if request.user.id is None:
         return False
     return len(Rating.objects.filter(user=request.user, ring=ring_elem)) > 0
-
-
-def vote(request, pk: str, up_or_down: str):
-    ring = Ring.objects.get(id=int(pk))
-    user = request.user
-    ring.vote(user, up_or_down)
-    return redirect('ring_detail', pk=pk)
 
 
 def rings_list(request, **kwargs):
