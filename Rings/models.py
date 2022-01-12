@@ -1,6 +1,7 @@
 import locale
 from django.db import models
 from django.contrib.auth.models import User
+from django.conf import settings
 
 
 class Ring(models.Model):
@@ -54,7 +55,7 @@ class Ring(models.Model):
 class Rating(models.Model):
     rating = models.IntegerField()
     timestamp = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     ring = models.ForeignKey(Ring, on_delete=models.CASCADE)
     comment = models.CharField(max_length=2500)
 
@@ -77,4 +78,4 @@ class RatingEvaluation(models.Model):
     ]
     evaluation = models.CharField(max_length=3, choices=EVALUATION)
     rating = models.ForeignKey(Rating, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

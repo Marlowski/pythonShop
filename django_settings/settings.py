@@ -35,7 +35,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'UserManagement.apps.UsermanagementConfig',
+    # 'UserManagement.apps.UsermanagementConfig',
+    'UserManagement',
     'Rings.apps.RingsConfig',
     'Cart.apps.CartConfig',
     'reportlab',
@@ -131,4 +132,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 LOGIN_REDIRECT_URL = 'landing-page'
 LOGOUT_REDIRECT_URL = 'landing-page'
 
-# AUTH_USER_MODEL = 'UserManagement.userTypes'
+AUTH_USER_MODEL = 'UserManagement.MyUser'
+
+# media handling
+MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = '/media/'
