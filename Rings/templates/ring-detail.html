@@ -8,23 +8,23 @@
             <div>
                 <h2>{{ ring_elem.bezeichnung }}</h2>
                 <div class="total-product-rating-container" data-average-rating="{{ rating }}">
-                <div class="total-star-elem total-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24" x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg>
+                    <div class="total-star-elem total-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24" x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg>
+                    </div>
+                    <div class="total-star-elem total-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24" x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg>
+                    </div>
+                    <div class="total-star-elem total-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24" x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg>
+                    </div>
+                    <div class="total-star-elem total-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24" x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg>
+                    </div>
+                    <div class="total-star-elem total-5">
+                        <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24" x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg>
+                    </div>
+                    <p class="total-rating-amount">({{ rating_amount }})</p>
                 </div>
-                <div class="total-star-elem total-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24" x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg>
-                </div>
-                <div class="total-star-elem total-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24" x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg>
-                </div>
-                <div class="total-star-elem total-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24" x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg>
-                </div>
-                <div class="total-star-elem total-5">
-                    <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24" x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg>
-                </div>
-                <p class="total-rating-amount">({{ rating_amount }})</p>
-            </div>
             </div>
             <div class="pp-img-wrapper">
                 <img src="{% static ring_elem.product_img_url %}" alt="Produkt Bild">
@@ -33,6 +33,10 @@
         <!-- right splitter -->
         <div>
             <div class="padding-wrapper">
+                <div class="img-seperator">
+                    <img src="{% static "assets/icons/jmonds_border_frame_simple.png" %}" alt="">
+                </div>
+
                 <ul class="product-info-list">
                     <li>
                         <p>Artikelnummer:</p>
@@ -40,7 +44,7 @@
                     </li>
                     <li>
                         <p>Preis:</p>
-                        <p>{{ ring_elem.preis }}</p>
+                        <p>{{ ring_elem.preis }} €</p>
                     </li>
                     <li>
                         <p>Material:</p>
@@ -57,16 +61,18 @@
                 </ul>
                 <form method="POST">
                     {% csrf_token %}
-                    <button type="submit" name="save_pdf">Produkt als Pdf speichern</button>
+                    <button type="submit" name="add_to_cart" class="btn">Add to Cart</button>
                 </form>
                 <form method="POST">
                     {% csrf_token %}
-                    <button type="submit" name="add_to_cart">Add to Cart</button>
+                    <button type="submit" name="save_pdf" class="secondary-btn">Produkt als Pdf speichern</button>
                 </form>
             </div>
         </div>
         <div class="product-rating-main-container">
+            <h2>Bewertungen</h2>
             {% if user.is_authenticated and already_rated == False %}
+                <p class="rating-desc">Teilen Sie ihre Meinung zu diesem Produkt</p>
                 <div class="product-rating-wrapper" data-rating-value="0">
                         <div class="star-elem star-1">
                             <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24" x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg>
@@ -84,12 +90,56 @@
                             <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24" x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg>
                         </div>
                     </div>
-                <div class="product-rating-submit-wrapper">
+                <form class="product-rating-submit-wrapper">
                     <label for="product-rating-comment">Kommentar:</label>
-                    <textarea id="product-rating-comment" name="product-rating-comment" rows="4" cols="50"></textarea>
-                    <button class="btn">Bewerten</button>
-                </div>
-        {% endif %}
+                    <textarea id="product-rating-comment" name="product-rating-comment" rows="4" cols="50" required></textarea>
+                    <button class="btn" type="submit">Bewerten</button>
+                </form>
+            {% endif %}
+            {% if rating_objects %}
+                <ul class="ratings-list">
+                    {% for rating_object in rating_objects %}
+                        <li data-rating-id="{{ rating_object.id }}">
+                        <div>
+                            <div class="total-product-rating-container" data-average-rating="{{ rating_object.rating }}">
+                                <div class="total-star-elem total-1">
+                                    <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24" x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg>
+                                </div>
+                                <div class="total-star-elem total-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24" x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg>
+                                </div>
+                                <div class="total-star-elem total-3">
+                                    <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24" x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg>
+                                </div>
+                                <div class="total-star-elem total-4">
+                                    <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24" x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg>
+                                </div>
+                                <div class="total-star-elem total-5">
+                                    <svg xmlns="http://www.w3.org/2000/svg" enable-background="new 0 0 24 24" height="24px" viewBox="0 0 24 24" width="24px"><g><rect fill="none" height="24" width="24" x="0"></rect><polygon points="14.43,10 12,2 9.57,10 2,10 8.18,14.41 5.83,22 12,17.31 18.18,22 15.83,14.41 22,10"></polygon></g></svg>
+                                </div>
+                            </div>
+                            <p>Am {{ rating_object.get_formatted_date }} von {{ rating_object.user.username }}</p>
+                        </div>
+                            <p class="rating_comment">{{ rating_object.comment }}</p>
+                        {% if rating_object.user == request.user %}
+                            <div class="action_btn_wrapper">
+                                <button class="action_btn" id="action-edit-save"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0z" fill="none"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg></button>
+                                <button class="action_btn" id="action-edit" data-active-edit="false"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0z" fill="none"/><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg></button>
+                                <button class="action_btn" id="action-delete"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" fill="#FFFFFF"><path d="M0 0h24v24H0z" fill="none"/><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg></button>
+                            </div>
+                        {% elif user.is_authenticated %}
+                            <div class="evaluate_btn_wrapper">
+                                <button class="evaluate_btn" id="evaluate-helpful">Hilfreich ({{ rating_object.get_pos_evaluation_amount }})</button>
+                                <button class="evaluate_btn" id="evaluate-not-helpful">Überflüssig ({{ rating_object.get_neg_evaluation_amount }})</button>
+                                <button class="evaluate_btn" id="evaluate-report">Melden</button>
+                            </div>
+                        {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                    <h4>Es wurden bisher noch keine Bewertungen abgegeben.</h4>
+            {% endif %}
         </div>
     </div>
 {% endblock %}

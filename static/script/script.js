@@ -75,10 +75,12 @@ $(function() {
       }
    });
 
-   //send star rating handler
-   $('.product-rating-submit-wrapper button').on('click', function () {
+   //handle star rating submit -> send data to python server
+   $('.product-rating-submit-wrapper').on('submit', function (e) {
+      e.preventDefault();
       let data = {
-         'rating': $('.product-rating-wrapper').attr('data-rating-value')
+         'rating': $('.product-rating-wrapper').attr('data-rating-value'),
+         'comment': $('#product-rating-comment').val()
       }
       djangoPostRequest(window.location.pathname, data);
    });
@@ -93,27 +95,92 @@ $(function() {
       }
    });
 
+   //rating comments delete & edit handler
+   $('#action-delete').on('click', function () {
+      let data = {
+         'action': "delete",
+         'rating_id': $(this).closest("li").attr('data-rating-id')
+      }
+      djangoPostRequest(window.location.pathname, data);
+   });
+
+   $('#action-edit').on('click', function () {
+      //togglewise handle edit btn
+      if($('#action-edit').attr('data-active-edit') === "true") {
+         document.location.reload();
+         return
+      }
+
+      //create textarea
+      let input = document.createElement("textarea");
+      input.classList.add("edit-rating-textarea");
+
+      //replace textnode with textarea
+      let commentElem = $(this).closest("li").find('.rating_comment');
+      input.value = commentElem.text();
+      commentElem.replaceWith(input);
+
+      //show save btn
+      $('#action-edit-save').fadeIn();
+      $('#action-edit').attr('data-active-edit', true).css("background-color", "#ad1010");
+   });
+
+   $('#action-edit-save').on('click', function () {
+      let newText = $(this).closest("li").find(".edit-rating-textarea")[0].value
+      let data = {
+         "action": "edit",
+         'rating_id': $(this).closest("li").attr('data-rating-id'),
+         "comment": newText
+      }
+      djangoPostRequest(window.location.pathname, data)
+   });
+
+   //evaluate comment (helpful, not helpful, report) handler
+   $('.evaluate_btn').on('click', function () {
+      let evValue = null
+      switch ($(this).attr("id")) {
+         case "evaluate-helpful":
+            evValue = "POS";
+            break;
+         case "evaluate-not-helpful":
+            evValue = "NEG";
+            break;
+         case "evaluate-report":
+            evValue = "REP";
+            break;
+         default:
+            console.error("Evaluation switch cant find matching parameter");
+            return;
+      }
+      let data = {
+         "action": "evaluate",
+         "evaluation": evValue,
+         "rating_id": $(this).closest("li").attr('data-rating-id')
+      }
+      djangoPostRequest(window.location.pathname, data);
+   });
+
    // Cart ajax handler
    //done in javascript to keep scroll position after refresh and therefor make it easy to add, remove etc. items from cart
    $('.cq_add_btn').on('click', function () {
       let data = {
          'change_quantity_add': $(this).attr('value')
       }
-      djangoPostRequest(window.location.pathname, data)
+      djangoPostRequest(window.location.pathname, data);
    });
 
    $('.cq_rem_btn').on('click', function () {
       let data = {
          'change_quantity_rem': $(this).attr('value')
       }
-      djangoPostRequest(window.location.pathname, data)
+      djangoPostRequest(window.location.pathname, data);
    });
 
    $('.remove_item_btn').on('click', function () {
       let data = {
          'remove_item': $(this).attr('value')
       }
-      djangoPostRequest(window.location.pathname, data)
+      djangoPostRequest(window.location.pathname, data);
    });
 });
 

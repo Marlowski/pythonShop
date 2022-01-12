@@ -90,6 +90,28 @@ h1, h2, h3, h4, p, ul, li, a {
   color: #484848;
 }
 
+.action_btn {
+  cursor: pointer;
+  border-radius: 50%;
+  border: none;
+  width: 30px;
+  height: 30px;
+  background-color: var(--DarkColor);
+  transition: background-color 0.2s ease-out;
+}
+.action_btn:hover {
+  background-color: #757575;
+}
+.action_btn svg {
+  width: 80%;
+}
+
+.action_btn_wrapper {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
 :root {
   font-family: "europa", sans-serif;
   font-size: 1rem;
@@ -819,6 +841,15 @@ label[for=email-field] {
   justify-content: center;
   align-items: flex-start;
 }
+#pp-page h2 {
+  font-family: "Playfair Display", serif;
+  font-weight: 100;
+  font-size: 3rem;
+  line-height: 50px;
+  margin-bottom: 12px;
+  position: relative;
+  z-index: 2;
+}
 #pp-page > div:first-of-type {
   flex: 1 1 25em;
   min-width: 50%;
@@ -828,15 +859,6 @@ label[for=email-field] {
   flex-flow: column nowrap;
   justify-content: space-around;
   align-items: flex-start;
-}
-#pp-page > div:first-of-type h2 {
-  font-family: "Playfair Display", serif;
-  font-weight: 100;
-  font-size: 3rem;
-  line-height: 50px;
-  margin-bottom: 12px;
-  position: relative;
-  z-index: 2;
 }
 #pp-page > div:first-of-type .total-product-rating-container {
   position: relative;
@@ -869,6 +891,7 @@ label[for=email-field] {
 #pp-page > div:nth-of-type(2) .padding-wrapper {
   background-color: var(--Rose);
   width: 75%;
+  margin-top: 50px;
   max-width: 575px;
   padding: 15px 20px;
   min-height: calc(80vh - 136.65px);
@@ -907,8 +930,43 @@ label[for=email-field] {
 #pp-page > div:nth-of-type(2) .padding-wrapper ul li[data-name=desc-field] p:last-of-type {
   max-width: 500px;
 }
+#pp-page > div:nth-of-type(2) .padding-wrapper .img-seperator {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
+#pp-page > div:nth-of-type(2) .padding-wrapper .img-seperator img {
+  width: 70%;
+}
+#pp-page > div:nth-of-type(2) .padding-wrapper form {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
+#pp-page > div:nth-of-type(2) .padding-wrapper form:first-of-type button {
+  padding: 10px;
+  width: 50%;
+  min-width: 150px;
+}
+#pp-page > div:nth-of-type(2) .padding-wrapper form:last-of-type {
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
 #pp-page .product-rating-main-container {
   width: 100%;
+  margin-top: 20px;
+  padding: 15px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+#pp-page .product-rating-main-container .rating-desc {
+  font-weight: 100;
 }
 
 .product-rating-wrapper, .total-product-rating-container {
@@ -948,6 +1006,70 @@ label[for=email-field] {
 
 .product-rating-submit-wrapper {
   display: none;
+}
+.product-rating-submit-wrapper label[for=product-rating-comment] {
+  display: block;
+  margin-top: 20px;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.9px;
+  margin-bottom: 7px;
+}
+.product-rating-submit-wrapper button {
+  display: block;
+  margin-top: 15px;
+  padding: 10px;
+  width: 100%;
+}
+
+#pp-page .product-rating-main-container .ratings-list {
+  max-width: 750px;
+}
+#pp-page .product-rating-main-container .ratings-list li {
+  position: relative;
+  border: 1px solid #c5c5c5;
+  margin: 12px 0;
+  padding: 20px;
+  border-radius: 12px;
+}
+#pp-page .product-rating-main-container .ratings-list li > div:first-of-type {
+  margin-bottom: 20px;
+}
+#pp-page .product-rating-main-container .ratings-list li > div:first-of-type p {
+  color: #838383;
+  font-size: 1rem;
+  font-weight: 100;
+}
+#pp-page .product-rating-main-container .edit-rating-textarea {
+  width: 100%;
+  font-family: "europa", sans-serif;
+}
+#pp-page .product-rating-main-container #action-edit-save {
+  display: none;
+  background-color: var(--Green);
+}
+#pp-page .product-rating-main-container #action-edit-save:hover {
+  background-color: #0ad264;
+}
+#pp-page .product-rating-main-container .evaluate_btn_wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 15px;
+}
+#pp-page .product-rating-main-container .evaluate_btn_wrapper .evaluate_btn {
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-size: 0.8rem;
+  font-family: "europa", sans-serif;
+  cursor: pointer;
+  border: none;
+  border-radius: 15px;
+  background: none;
+}
+#pp-page .product-rating-main-container .evaluate_btn_wrapper .evaluate_btn:last-of-type {
+  color: #b60505;
 }
 
 @media screen and (max-width: 400px) {

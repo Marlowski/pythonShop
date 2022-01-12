@@ -94,3 +94,28 @@ h1, h2, h3, h4, p, ul, li, a {
     color: #484848;
   }
 }
+
+
+.action_btn {
+  cursor: pointer;
+  border-radius: 50%;
+  border: none;
+  width: 30px;
+  height: 30px;
+  background-color: var(--DarkColor);
+  transition: background-color .2s ease-out;
+
+  &:hover {
+    background-color: #757575;
+  }
+
+  svg {
+    width: 80%;
+  }
+}
+
+.action_btn_wrapper {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
