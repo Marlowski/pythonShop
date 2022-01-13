@@ -13,32 +13,16 @@ $(function() {
    }
 
    //search select manager
-   //assure that after refresh default is selected
-   $('#search-select').val("default").prop('selected', true);
+   //assure that after refresh stored elem is selected
+   if ($('#search-select').length) {
+      $('#search-select').val(localStorage.getItem("search-type"));
+      setSearchSelection();
+   }
+
    $('#search-select').on('change', function () {
-      let placeholderText;
-      switch($('#search-select').val()) {
-         case "default":
-            placeholderText = "Suche";
-            $('.sip-star').removeClass('shown');
-            $('.sip-size').removeClass('shown');
-            break;
-         case "size":
-            placeholderText = "Suche (Ringbreite)";
-            $('.sip-star').removeClass('shown');
-            $('.sip-size').addClass('shown');
-            break;
-         case "rating":
-            placeholderText = "Suche (Rating (3, 2-5))";
-            $('.sip-star').addClass('shown');
-            $('.sip-size').removeClass('shown');
-            break;
-         default:
-            placeholderText = "Suche";
-            $('.sip-star').removeClass('shown');
-            $('.sip-size').removeClass('shown');
-      }
-      $('#searchbar').attr("placeholder", placeholderText);
+      //save selected for refresh
+      localStorage.setItem("search-type", $(this).val());
+      setSearchSelection();
    });
 
    //product page star rating handler
@@ -197,4 +181,30 @@ function djangoPostRequest(url, data) {
          document.location.reload();
       }
    });
+}
+
+function setSearchSelection() {
+         let placeholderText;
+      switch($('#search-select').val()) {
+         case "default":
+            placeholderText = "Suche";
+            $('.sip-star').removeClass('shown');
+            $('.sip-size').removeClass('shown');
+            break;
+         case "size":
+            placeholderText = "Suche (Ringbreite)";
+            $('.sip-star').removeClass('shown');
+            $('.sip-size').addClass('shown');
+            break;
+         case "rating":
+            placeholderText = "Suche (Rating (3, 2-5))";
+            $('.sip-star').addClass('shown');
+            $('.sip-size').removeClass('shown');
+            break;
+         default:
+            placeholderText = "Suche";
+            $('.sip-star').removeClass('shown');
+            $('.sip-size').removeClass('shown');
+      }
+      $('#searchbar').attr("placeholder", placeholderText);
 }

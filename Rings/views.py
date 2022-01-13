@@ -141,5 +141,6 @@ def rings_list(request, **kwargs):
     # page called from category
     else:
         product_query = Ring.objects.filter(bezeichnung__contains=kwargs['query'])
+        product_query = product_query.order_by("ring_size")
         context = {'product_list': product_query, 'query_origin': False, 'query_text': kwargs['query']}
         return render(request, 'rings-list.html', context)

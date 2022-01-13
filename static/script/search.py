@@ -20,6 +20,8 @@ def search_script(request):
         if search_type == "size":
             if search_input.__contains__("mm"):
                 search_input = search_input.replace(" ", "").split("mm")[0]
+            if search_input.__contains__(","):
+                search_input = search_input.replace(",", ".")
             search_results = Ring.objects.filter(ring_size__contains=search_input)
 
         elif search_type == "rating":

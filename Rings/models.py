@@ -14,6 +14,7 @@ class Ring(models.Model):
     bezeichnung = models.CharField(max_length=100)
     preis = models.DecimalField(max_digits=7, decimal_places=2)
     material = models.CharField(max_length=2, choices=RING_MATERIALS)
+    category = models.CharField(max_length=100)
     ring_size = models.CharField(max_length=5)
     product_img_url = models.CharField(max_length=300)
     description = models.CharField(max_length=1000)

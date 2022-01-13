@@ -187,6 +187,25 @@ header .header__elem-wrapper.banner-wrapper .elem-wrapper__icon-wrapper img {
 header .header__elem-wrapper.banner-wrapper .elem-wrapper__icon-wrapper a {
   margin: 0 4px;
 }
+header .header__elem-wrapper.banner-wrapper .elem-wrapper__icon-wrapper a.cart-icon {
+  position: relative;
+}
+header .header__elem-wrapper.banner-wrapper .elem-wrapper__icon-wrapper a.cart-icon p {
+  position: absolute;
+  top: -2px;
+  right: -5px;
+  border-radius: 50%;
+  width: 17px;
+  height: 17px;
+  font-size: 0.65rem;
+  color: #fff;
+  background-color: var(--Green);
+  opacity: 0.8;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+}
 header .header__elem-wrapper #search-container {
   margin-right: 20px;
   position: relative;
@@ -1024,6 +1043,7 @@ label[for=email-field] {
 
 #pp-page .product-rating-main-container .ratings-list {
   max-width: 750px;
+  width: 100%;
 }
 #pp-page .product-rating-main-container .ratings-list li {
   position: relative;

@@ -48,7 +48,12 @@
                     <a href="{% url 'login' %}"><img src="{% static "assets/icons/user.png" %}" alt="Login"></a>
                 {% endblock %}
             {% endif %}
-            <a href="{% url 'cart-show' %}"><img src="{% static "assets/icons/shopping-bag.png" %}" alt="Cart"></a>
+            <a href="{% url 'cart-show' %}" class="cart-icon">
+                <img src="{% static "assets/icons/shopping-bag.png" %}" alt="Cart">
+                {% if user.is_authenticated and user.get_user_cart_amount is not 0 %}
+                    <p>{{ user.get_user_cart_amount }}</p>
+                {% endif %}
+            </a>
         </div>
     </div>
     <div class="header__navbar">

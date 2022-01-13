@@ -41,6 +41,24 @@ header {
         }
         a {
           margin: 0 4px;
+
+          &.cart-icon {
+            position: relative;
+
+            p {
+              position: absolute;
+              top: -2px;
+              right: -5px;
+              border-radius: 50%;
+              width: 17px;
+              height: 17px;
+              font-size: 0.65rem;
+              color: #fff;
+              background-color: var(--Green);
+              opacity: 0.8;
+              @include mixins.flex-box();
+            }
+          }
         }
       }
     }
@@ -131,7 +149,6 @@ header {
       }
     }
   }
-
 }
 
 @media screen and (max-width: 860px) {
