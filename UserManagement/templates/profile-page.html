@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block bodyContent %}
+    <div class="pp-page">
+        <div>
+            <img src="{{ user.profile_picture.url }}" alt="Profilbild">
+        </div>
+        <div>
+            <ul>
+                <li>
+                    <p>Username:</p>
+                    <p>{{ user.username }}</p>
+                </li>
+                <li>
+                    <p>E-Mail:</p>
+                    <p>{{ user.email }}</p>
+                </li>
+                <li>
+                    <p>Beitritt:</p>
+                    <p>{{ user.date_joined }}</p>
+                </li>
+                <li>
+                    <p>Status:</p>
+                    {% if user.is_superuser %}
+                        <p>Admin</p>
+                    {% elif user.is_staff and not user.is_superuser %}
+                        <p>Mitarbeiter</p>
+                    {% elif not user.is_superuser and not user.is_staff %}
+                        <p>Customer</p>
+                    {% endif %}
+                </li>
+            </ul>
+        <a href="{% url 'logout' %}" class="btn">Logout</a>
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" name="load_editpage" class="secondary-btn">Bearbeiten</button>
+        </form>
+        </div>
+    </div>
+{% endblock %}

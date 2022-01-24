@@ -15,7 +15,7 @@
                         <li class="cart-elem">
                             <div>
                                 <div class="product-img-wrapper">
-                                    <img src="{% static item.product_img_url %}" alt="Produkt Bild">
+                                    <img src="{{ item.product_img_url.url }}" alt="Produkt Bild">
                                 </div>
                                 <div class="product-info-wrapper">
                                     <a href="{% url 'ring_detail' pk=item.product_id %}" class="product-name">{{ item.product_name }}</a>

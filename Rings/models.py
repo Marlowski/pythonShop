@@ -16,7 +16,7 @@ class Ring(models.Model):
     material = models.CharField(max_length=2, choices=RING_MATERIALS)
     category = models.CharField(max_length=100)
     ring_size = models.CharField(max_length=5)
-    product_img_url = models.CharField(max_length=300)
+    product_img_url = models.ImageField(upload_to='product_images/', blank=True, null=True)
     description = models.CharField(max_length=1000)
 
     class Meta:
@@ -46,6 +46,10 @@ class Ring(models.Model):
     def get_rating_objects(self):
         return Rating.objects.filter(ring=self)
 
+    def get_formatted_categorys(self):
+        cat_string = self.category
+        return cat_string.replace("|", ", ")
+
     def __str__(self):
         return self.bezeichnung + ' (' + self.get_material_display() + ')'
 
@@ -69,6 +73,9 @@ class Rating(models.Model):
 
     def get_neg_evaluation_amount(self):
         return len(RatingEvaluation.objects.filter(rating=self.id, evaluation="NEG"))
+
+    def get_rep_evaluation_amount(self):
+        return len(RatingEvaluation.objects.filter(rating=self.id, evaluation="REP"))
 
 
 class RatingEvaluation(models.Model):

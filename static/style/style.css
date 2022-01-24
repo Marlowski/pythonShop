@@ -854,6 +854,7 @@ label[for=email-field] {
 }
 
 #pp-page {
+  position: relative;
   margin: 20px 0;
   display: flex;
   flex-flow: row wrap;
@@ -1064,12 +1065,24 @@ label[for=email-field] {
   width: 100%;
   font-family: "europa", sans-serif;
 }
-#pp-page .product-rating-main-container #action-edit-save {
+#pp-page .product-rating-main-container .action-edit-save {
   display: none;
   background-color: var(--Green);
 }
-#pp-page .product-rating-main-container #action-edit-save:hover {
+#pp-page .product-rating-main-container .action-edit-save:hover {
   background-color: #0ad264;
+}
+#pp-page .product-rating-main-container .ev_report_amount {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #bf0000;
+  padding: 2px 20px;
+  font-size: 0.7rem;
+  border-radius: 50px;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
 }
 #pp-page .product-rating-main-container .evaluate_btn_wrapper {
   display: flex;
@@ -1090,6 +1103,84 @@ label[for=email-field] {
 }
 #pp-page .product-rating-main-container .evaluate_btn_wrapper .evaluate_btn:last-of-type {
   color: #b60505;
+}
+
+.backend-nav-bar-container {
+  width: 100%;
+  height: 35px;
+  padding: 0 20px;
+  margin-top: -25px;
+  background-color: var(--DarkColor);
+  overflow: hidden;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: center;
+}
+.backend-nav-bar-container h3 {
+  padding: 0;
+  color: #fff;
+  text-transform: uppercase;
+  font-size: 0.8rem;
+  letter-spacing: 0.8px;
+}
+.backend-nav-bar-container > div:last-of-type {
+  height: 100%;
+}
+.backend-nav-bar-container > div:last-of-type form {
+  height: 100%;
+}
+.backend-nav-bar-container > div:last-of-type form button {
+  height: 100%;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  min-width: 65px;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  padding: 0 10px;
+  transition: background-color 0.3s ease-out;
+  font-family: "Europa", sans-serif;
+  font-weight: 100;
+}
+.backend-nav-bar-container > div:last-of-type form button:hover {
+  background-color: #bf0000;
+}
+
+#edit-page-container {
+  position: relative;
+  min-height: calc(100vh - (136.65px + 35px));
+}
+
+.saved-banner {
+  display: none;
+  width: 100%;
+  background-color: #0ad264;
+  padding: 10px 20px;
+  text-align: center;
+}
+.saved-banner p {
+  color: #fff;
+  font-weight: 100;
+}
+
+.spinner-wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: center;
+  align-items: center;
+  display: none;
+  position: absolute;
+  z-index: 999;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(38, 38, 38, 0.51);
+}
+.spinner-wrapper img {
+  width: 50px;
 }
 
 @media screen and (max-width: 400px) {

@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block bodyContent %}
+    <div id="edit-page-container">
+        <div class="saved-banner">
+            <p>Profiländerungen wurden erfolgreich gespeichert!</p>
+        </div>
+        <div class="spinner-wrapper">
+            <img src="{% static 'assets/icons/loading-spinner.gif' %}" alt="Loading...">
+        </div>
+
+        <h2>{{ user.username }}</h2>
+
+        <form id="edit-profile-form" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div>
+                <label for="profile-name">Username</label>
+                <input id="profile-name" type="text" name="username" value="{{ user.username }}" data-default="{{ user.username }}" required>
+            </div>
+            <div>
+                <label for="profile-mail">E-Mail</label>
+                <input id="profile-mail" type="email" value="{{ user.email }}" data-default="{{ user.email }}" required>
+            </div>
+            <div>
+                <label for="profile-pic">Profilbild</label>
+                <img src="{{ user.profile_picture.url }}" alt="Profilbild">
+                <input id="profile-pic" type="file">
+            </div>
+            <div>
+                <button id="save_profile_changes" name="save_edited_profile">Speichern</button>
+                <button type="submit" name="discard_changes">Abbrechen</button>
+            </div>
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block bodyContent %}
+    {% if user.is_staff == 1 or user.is_superuser == 1 %}
+        <div class="backend-nav-bar-container">
+            <div>
+                <h3>Backend Bar</h3>
+            </div>
+            <div>
+                <form method="post">
+                    {% csrf_token %}
+                    <button name="delete_product" id="delete_product">Löschen</button><button name="save_changes" id="save_changes">Speichern</button><button type="submit" name="discard_changes">X</button>
+                </form>
+            </div>
+        </div>
+        <div id="edit-page-container">
+            <div class="saved-banner">
+                <p>Produktänderungen wurden erfolgreich gespeichert!</p>
+            </div>
+            <div class="spinner-wrapper">
+                <img src="{% static 'assets/icons/loading-spinner.gif' %}" alt="Loading...">
+            </div>
+
+            <h2>{{ ring_elem.bezeichnung }}</h2>
+            <h3>SKU: {{ ring_elem.id }}</h3>
+
+            <form id="edit-product-form">
+                <!-- default values set via js to prevent caching, value=foobar for init backup -->
+                <div>
+                    <label for="pr-title">Bezeichnung</label>
+                    <input id="pr-title" type="text" value="{{ ring_elem.bezeichnung }}" data-default="{{ ring_elem.bezeichnung }}">
+                </div>
+               <div>
+                    <label for="pr-price">Preis (€)</label>
+                    <input id="pr-price" type="text" value="{{ ring_elem.preis }}" data-default="{{ ring_elem.preis }}">
+                </div>
+                <div>
+                    <label for="pr-mat">Material</label>
+                    <select id="pr-mat" data-default="{{ ring_elem.material }}">
+                        <option name="GG" value="GG">Gelbgold</option>
+                        <option name="WG" value="WG">Weißgold</option>
+                        <option name="RG" value="RG">Rosegold</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="pr-cat">Kategorie</label>
+                    <input id="pr-cat" type="text" value="{{ ring_elem.category }}" data-default="{{ ring_elem.category }}">
+                </div>
+                <div>
+                    <label for="pr-size">Größe</label>
+                    <input id="pr-size" type="text" value="{{ ring_elem.ring_size }}" data-default="{{ ring_elem.ring_size }}">
+                </div>
+                <div>
+                    <label for="pr-desc">Beschreibung</label>
+                    <textarea id="pr-desc" rows="4" data-default="{{ ring_elem.description }}">{{ ring_elem.description }}</textarea>
+                </div>
+            </form>
+        </div>
+    {% endif %}
+{% endblock %}

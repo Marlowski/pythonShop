@@ -80,7 +80,7 @@ $(function() {
    });
 
    //rating comments delete & edit handler
-   $('#action-delete').on('click', function () {
+   $('.action-delete').on('click', function () {
       let data = {
          'action': "delete",
          'rating_id': $(this).closest("li").attr('data-rating-id')
@@ -88,9 +88,11 @@ $(function() {
       djangoPostRequest(window.location.pathname, data);
    });
 
-   $('#action-edit').on('click', function () {
+   $('.action-edit').on('click', function () {
       //togglewise handle edit btn
-      if($('#action-edit').attr('data-active-edit') === "true") {
+      let parentNode = $(this).closest("li");
+
+      if(parentNode.find(('.action-edit')).attr('data-active-edit') === "true") {
          document.location.reload();
          return
       }
@@ -104,12 +106,12 @@ $(function() {
       input.value = commentElem.text();
       commentElem.replaceWith(input);
 
-      //show save btn
-      $('#action-edit-save').fadeIn();
-      $('#action-edit').attr('data-active-edit', true).css("background-color", "#ad1010");
+      //show save btn (only for selected comment elem)
+      parentNode.find(".action-edit-save").fadeIn();
+      parentNode.find('.action-edit').attr('data-active-edit', true).css("background-color", "#ad1010");
    });
 
-   $('#action-edit-save').on('click', function () {
+   $('.action-edit-save').on('click', function () {
       let newText = $(this).closest("li").find(".edit-rating-textarea")[0].value
       let data = {
          "action": "edit",
@@ -166,6 +168,72 @@ $(function() {
       }
       djangoPostRequest(window.location.pathname, data);
    });
+
+   // -- Product edit page handler --
+   //set default values
+   if ($('#edit-product-form') != null) {
+      let title = $('#pr-title');
+      title.val(title.attr('data-default'));
+
+      let price = $('#pr-price');
+      price.val(price.attr('data-default'));
+
+      let select = $('#pr-mat');
+      select.val(select.attr('data-default'));
+
+      let cat = $('#pr-cat');
+      cat.val(cat.attr('data-default'));
+
+      let size = $('#pr-size');
+      size.val(size.attr('data-default'));
+
+      let desc = $('#pr-desc');
+      desc.val(desc.attr('data-default'));
+   }
+
+   //save changes
+   $('#save_changes').on('click', function (e) {
+      e.preventDefault();
+      checkEditInputs()
+   });
+
+   //delete product
+   $('#delete_product').on('click', function (e) {
+      e.preventDefault();
+      if(confirm("Sind sie sicher, dass sie das Produkt löschen wollen?")) {
+         let data = {
+            'delete_product': true,
+         }
+         djangoPostRequest(window.location.pathname, data);
+      }
+   });
+
+   // Profile Edit Page
+   if ($('#edit-profile-form') != null) {
+      let username = $('#profile-name');
+      username.val(username.attr('data-default'));
+
+      let mail = $('#profile-mail');
+      mail.val(mail.attr('data-default'));
+   }
+
+   // save profile changes
+   $('#save_profile_changes').on('click', function (e) {
+      e.preventDefault();
+
+      let fd = new FormData();
+      let imageFile = $('#profile-pic')[0].files;
+
+      fd.append("file", imageFile[0]);
+
+      let data = {
+         "save_edited_profile": true,
+         "username": $('#profile-name').val(),
+         "email": $('#profile-mail').val(),
+         "profile_picture": fd,
+      }
+      djangoPostRequest(window.location.pathname, fd);
+   });
 });
 
 function djangoPostRequest(url, data) {
@@ -177,8 +245,14 @@ function djangoPostRequest(url, data) {
       mode: 'same-origin',
       url: url,
       data: data,
-      success: function () {
-         document.location.reload();
+      success: function (response) {
+         //if response was sent, dont reload, just alter accordingly
+         if(response["saved"]) {
+            $('.spinner-wrapper').fadeOut();
+            $('.saved-banner').fadeIn();
+         } else {
+            document.location.reload();
+         }
       }
    });
 }
@@ -207,4 +281,57 @@ function setSearchSelection() {
             $('.sip-size').removeClass('shown');
       }
       $('#searchbar').attr("placeholder", placeholderText);
+}
+
+function checkEditInputs() {
+   let missingInput = false
+   let data = {
+      "save_edited_product": true,
+      "material": $('#pr-mat').val(),
+   }
+
+   let titleInput = $('#pr-title');
+   if(titleInput.val() !== "") {
+      data["bezeichnung"] = titleInput.val();
+   } else {
+      missingInput = true;
+   }
+
+   let priceInput = $('#pr-price');
+   if(priceInput.val() !== "") {
+      data["preis"] = priceInput.val();
+   } else {
+      missingInput = true;
+   }
+
+   let catInput = $('#pr-cat');
+   if(catInput.val() !== "") {
+      data["category"] = catInput.val();
+   } else {
+      missingInput = true;
+   }
+
+     let sizeInput = $('#pr-size');
+   if(sizeInput.val() !== "") {
+      data["size"] = sizeInput.val();
+   } else {
+      missingInput = true;
+   }
+
+   let descInput = $('#pr-desc');
+   if(descInput.val() !== "") {
+      data["description"] = descInput.val();
+   } else {
+      missingInput = true;
+   }
+
+   if(missingInput) {
+      alert("Alle Felder müssen ausgefüllt sein!");
+   } else {
+      if($('.saved-banner').css('display') !== 'none') {
+         $('.saved-banner').fadeOut();
+      }
+      $('.spinner-wrapper').css('display', 'flex');
+      djangoPostRequest(window.location.pathname, data);
+   }
 }

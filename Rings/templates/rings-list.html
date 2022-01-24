@@ -17,7 +17,7 @@
             {% for elem in product_list %}
                 <li>
                     <a href="{% url 'ring_detail' pk=elem.id %}">
-                        <img src="{% static elem.product_img_url %} " alt="{{ elem.bezeichnung }} Bild">
+                        <img src="{{ elem.product_img_url.url }}" alt="{{ elem.bezeichnung }} Bild">
                         <h4>{{ elem.bezeichnung }}</h4>
                         <div class="list__rating-wrapper">
                             {% if elem.get_amount_of_ratings > 0 %}

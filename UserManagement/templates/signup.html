@@ -10,13 +10,13 @@
                 <h4>Sie sind bereits eingeloggt!</h4>
             {% else %}
                 <form method="post" class="signup-form" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <div class="form__btn-wrapper">
-                    <button type="submit" class="btn">Sign In</button>
-                    <a href="{% url 'login' %}" class="secondary-btn">Login</a>
-                </div>
-            </form>
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="form__btn-wrapper">
+                        <button type="submit" class="btn">Sign In</button>
+                        <a href="{% url 'login' %}" class="secondary-btn">Login</a>
+                    </div>
+                </form>
             {% endif %}
         </div>
     </div>

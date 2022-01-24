@@ -28,7 +28,7 @@
                 <label for="searchbar">Suche</label>
                 <select name="search-type" id="search-select">
                     <option value="info" disabled>Suchen nach:</option>
-                    <option value="default" selected>Name, SDK</option>
+                    <option value="default" selected>Name, SKU</option>
                     <option value="size">Ringbreite</option>
                     <option value="rating">Bewertung</option>
                 </select>
@@ -41,7 +41,7 @@
             </form>
             {% if user.is_authenticated %}
                 {% block logged_in_content %}
-                    <a href="{% url 'landing-page' %}"><img src="{% static "assets/icons/home.png" %}" alt="Profil"></a>
+                    <a href="{% url 'user_profile' pk=user.id %}"><img src="{% static "assets/icons/user.png" %}" alt="Profil"></a>
                 {% endblock %}
             {% else %}
                 {% block not_logged_in_content %}

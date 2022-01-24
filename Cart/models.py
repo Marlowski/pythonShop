@@ -66,7 +66,7 @@ class Cart(models.Model):
 class CartItem(models.Model):
     product_id = models.IntegerField()
     product_name = models.CharField(max_length=1000)
-    product_img_url = models.CharField(max_length=1000)
+    product_img_url = models.ImageField(upload_to='product_images/', blank=True, null=True)
     price = models.DecimalField(decimal_places=2, max_digits=10)
     quantity = models.IntegerField(default=1)
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
