@@ -22,10 +22,10 @@
                 <img src="{% static 'assets/icons/loading-spinner.gif' %}" alt="Loading...">
             </div>
 
-            <h2>{{ ring_elem.bezeichnung }}</h2>
+            <h2 id="product-title">{{ ring_elem.bezeichnung }}</h2>
             <h3>SKU: {{ ring_elem.id }}</h3>
 
-            <form id="edit-product-form">
+            <form id="edit-product-form" class="edit-form" enctype="multipart/form-data">
                 <!-- default values set via js to prevent caching, value=foobar for init backup -->
                 <div>
                     <label for="pr-title">Bezeichnung</label>
@@ -54,6 +54,13 @@
                 <div>
                     <label for="pr-desc">Beschreibung</label>
                     <textarea id="pr-desc" rows="4" data-default="{{ ring_elem.description }}">{{ ring_elem.description }}</textarea>
+                </div>
+                <div>
+                    {%  if ring_elem.product_img_url %}
+                        <img id="product-img" src="{{ ring_elem.product_img_url.url }}" alt="Produktbild">
+                    {% endif %}
+                    <label for="pr-img">Produktbild</label>
+                    <input id="pr-img" type="file">
                 </div>
             </form>
         </div>

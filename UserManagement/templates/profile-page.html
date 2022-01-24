@@ -4,7 +4,9 @@
 {% block bodyContent %}
     <div class="pp-page">
         <div>
-            <img src="{{ user.profile_picture.url }}" alt="Profilbild">
+            {%  if user.profile_picture %}
+                <img src="{{ user.profile_picture.url }}" alt="Profilbild">
+            {% endif %}
         </div>
         <div>
             <ul>

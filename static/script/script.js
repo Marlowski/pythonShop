@@ -223,16 +223,13 @@ $(function() {
 
       let fd = new FormData();
       let imageFile = $('#profile-pic')[0].files;
-
       fd.append("file", imageFile[0]);
+      fd.append("username", $('#profile-name').val());
+      fd.append("email", $('#profile-mail').val());
+      fd.append("save_edited_profile", "");
 
-      let data = {
-         "save_edited_profile": true,
-         "username": $('#profile-name').val(),
-         "email": $('#profile-mail').val(),
-         "profile_picture": fd,
-      }
-      djangoPostRequest(window.location.pathname, fd);
+      $('.spinner-wrapper').css('display', 'flex');
+      djangoDataPostRequest(window.location.pathname, fd);
    });
 });
 
@@ -246,13 +243,36 @@ function djangoPostRequest(url, data) {
       url: url,
       data: data,
       success: function (response) {
+         document.location.reload();
+      }
+   });
+}
+
+function djangoDataPostRequest(url, data) {
+   $.ajax({
+      method: 'POST',
+      headers: {
+         'X-CSRFToken': $.cookie('csrftoken'),
+      },
+      mode: 'same-origin',
+      url: url,
+      data: data,
+      processData: false,
+      contentType: false,
+      success: function (response) {
          //if response was sent, dont reload, just alter accordingly
-         if(response["saved"]) {
-            $('.spinner-wrapper').fadeOut();
-            $('.saved-banner').fadeIn();
-         } else {
-            document.location.reload();
+         if(response["profile_edit"]) {
+            $('#username').html(response["new_username"]);
+            let profilImgElem = $('#profil-img');
+            if(profilImgElem) {
+               profilImgElem.attr("src", response["new_img_url"]);
+            }
+         } else if(response["product_edit"]) {
+            $('#product-img').attr("src", response["new_img_url"]);
+            $('#product-title').html(response["new_title"]);
          }
+         $('.spinner-wrapper').fadeOut();
+         $('.saved-banner').fadeIn();
       }
    });
 }
@@ -283,44 +303,46 @@ function setSearchSelection() {
       $('#searchbar').attr("placeholder", placeholderText);
 }
 
+//manual input empty check handler, since submit buttons are not inside form elem
 function checkEditInputs() {
    let missingInput = false
-   let data = {
-      "save_edited_product": true,
-      "material": $('#pr-mat').val(),
-   }
+   let fd = new FormData();
+   fd.append("save_edited_product", "");
+   fd.append("material", $('#pr-mat').val());
+   let imageFile = $('#pr-img')[0].files;
+   fd.append("file", imageFile[0]);
 
    let titleInput = $('#pr-title');
    if(titleInput.val() !== "") {
-      data["bezeichnung"] = titleInput.val();
+      fd.append("bezeichnung", titleInput.val());
    } else {
       missingInput = true;
    }
 
    let priceInput = $('#pr-price');
    if(priceInput.val() !== "") {
-      data["preis"] = priceInput.val();
+      fd.append("preis", priceInput.val());
    } else {
       missingInput = true;
    }
 
    let catInput = $('#pr-cat');
    if(catInput.val() !== "") {
-      data["category"] = catInput.val();
+      fd.append("category", catInput.val());
    } else {
       missingInput = true;
    }
 
      let sizeInput = $('#pr-size');
    if(sizeInput.val() !== "") {
-      data["size"] = sizeInput.val();
+      fd.append("size", sizeInput.val());
    } else {
       missingInput = true;
    }
 
    let descInput = $('#pr-desc');
    if(descInput.val() !== "") {
-      data["description"] = descInput.val();
+      fd.append("description", descInput.val());
    } else {
       missingInput = true;
    }
@@ -332,6 +354,6 @@ function checkEditInputs() {
          $('.saved-banner').fadeOut();
       }
       $('.spinner-wrapper').css('display', 'flex');
-      djangoPostRequest(window.location.pathname, data);
+      djangoDataPostRequest(window.location.pathname, fd);
    }
 }

@@ -43,14 +43,17 @@ def profile_edit(request, **kwargs):
         if request.POST.__contains__('discard_changes'):
             return redirect('user_profile')
 
-        print(request.POST)
+        if request.POST.get("save_edited_profile") == "":
+            if request.FILES.get("file") is not None:
+                profile.profile_picture = request.FILES.get("file")
 
-        if request.POST.__contains__('save_edited_profile'):
-            print(request.POST)
-            # profile.username = request.POST.get('username', profile.username)
-            # profile.email = request.POST.get('email', profile.email)
-            profile.profile_picture = request.POST.get('profile_picture', profile.profile_picture)
+            profile.username = request.POST.get("username")
+            profile.email = request.POST.get("email")
             profile.save()
+            return JsonResponse({"profile_edit": True,
+                                 "new_img_url": profile.profile_picture.url,
+                                 "new_username": profile.username
+                                 }, status=200)
 
     context = {'user': profile}
     return render(request, 'profile-edit.html', context)
