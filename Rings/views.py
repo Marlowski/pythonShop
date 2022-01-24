@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from Cart.models import add_item
 from static.script.search import search_script, search_range_rating
@@ -26,6 +27,10 @@ def ring_detail(request, **kwargs):
                                    'rating_objects': ring_elem.get_rating_objects(),
                                    'already_rated': check_if_user_rated(request, ring_elem)
                                    })
+
+        # staff or superuser trying to enter edit mode (role handling in other view)
+        elif request.POST.__contains__('load_editpage'):
+            return redirect('ring-edit', pk=ring_id)
 
         # star rating handler
         elif request.POST.__contains__('rating'):
@@ -68,24 +73,34 @@ def ring_detail(request, **kwargs):
             rating_object = Rating.objects.get(id=request.POST['rating_id'])
 
             if action == "delete":
-                # check if userid matches ratings creator id
-                # TODO: also check for role, if admin is trying to delete, let through aswell
-                if request.user.id == rating_object.user_id:
+                # check if userid matches ratings creator id or if staff or admin is trying to delete/edit
+                if request.user.id == rating_object.user_id or \
+                        request.user.is_staff == 1 or \
+                        request.user.is_superuser == 1:
                     rating_object.delete()
 
             elif action == "edit":
                 new_text = request.POST['comment']
-                if request.user.id == rating_object.user_id:
+                if request.user.id == rating_object.user_id or \
+                        request.user.is_staff == 1 or \
+                        request.user.is_superuser == 1:
                     rating_object.comment = new_text
                     rating_object.save()
 
             elif action == "evaluate":
                 evaluation = request.POST['evaluation']
                 # check if already evaluated for certain evaluation (cant evaluate as helpful twice)
+                # but can always report
                 existing_ev_amount = 0
                 if evaluation != "REP":
-                    all_evs = RatingEvaluation.objects.filter(user=request.user)
+                    all_evs = RatingEvaluation.objects.filter(user=request.user, rating=rating_object.id)
                     existing_ev_amount = len(all_evs.exclude(evaluation="REP"))
+                # check if already reported
+                else:
+                    reports = RatingEvaluation.objects.filter(user=request.user,
+                                                              rating=rating_object.id,
+                                                              evaluation="REP")
+                    existing_ev_amount = len(reports)
 
                 if existing_ev_amount == 0 and request.user.id is not None:
                     RatingEvaluation.objects.create(evaluation=evaluation, user=request.user, rating=rating_object)
@@ -140,7 +155,48 @@ def rings_list(request, **kwargs):
 
     # page called from category
     else:
-        product_query = Ring.objects.filter(bezeichnung__contains=kwargs['query'])
+        product_query = Ring.objects.filter(category__contains=kwargs['query'])
         product_query = product_query.order_by("ring_size")
         context = {'product_list': product_query, 'query_origin': False, 'query_text': kwargs['query']}
         return render(request, 'rings-list.html', context)
+
+
+def ring_edit(request, **kwargs):
+    # handle unauthorized access
+    if request.user.is_staff != 1 and request.user.is_superuser != 1:
+        return redirect('landing-page')
+
+    if request.method == 'POST' and request.POST.__contains__('search_input'):
+        # Check if POST req. comes from search form
+        return search_script(request)
+
+    ring_id = kwargs['pk']
+    ring_elem = Ring.objects.get(id=ring_id)
+
+    if request.method == 'POST':
+        if "discard_changes" in request.POST:
+            return redirect('ring_detail', pk=ring_id)
+
+        # delete product
+        if request.POST.__contains__('delete_product'):
+            Ring.objects.get(id=ring_id).delete()
+            return redirect('landing-page')
+
+        # save changes to product
+        if request.POST.__contains__("save_edited_product"):
+            ring_elem.bezeichnung = request.POST['bezeichnung']
+            ring_elem.material = request.POST['material']
+            ring_elem.preis = request.POST['preis']
+            ring_elem.category = request.POST['category']
+            ring_elem.ring_size = request.POST['size']
+            ring_elem.description = request.POST['description']
+            ring_elem.save()
+            return JsonResponse({"saved": True}, status=200)
+    # /end if==POST
+
+    context = {
+        'ring_elem': ring_elem,
+        'saved': False,
+    }
+
+    return render(request, 'product-edit.html', context)

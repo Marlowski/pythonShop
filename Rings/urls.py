@@ -5,6 +5,5 @@ urlpatterns = [
     path('list/<str:query>', views.rings_list, name='ring-list'),
     path('list/results/<str:query>', views.rings_list, name='ring-list-search'),
     path('product/<int:pk>/', views.ring_detail, name='ring_detail'),
-    # path('add/', views.ring_create, name='ring-create'),
-    # path('delete/<int:pk>/', views.ring_delete, name='ring-delete'),
+    path('product/<int:pk>/edit', views.ring_edit, name='ring-edit'),
 ]
