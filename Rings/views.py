@@ -184,14 +184,19 @@ def ring_edit(request, **kwargs):
 
         # save changes to product
         if request.POST.__contains__("save_edited_product"):
-            ring_elem.bezeichnung = request.POST['bezeichnung']
-            ring_elem.material = request.POST['material']
-            ring_elem.preis = request.POST['preis']
-            ring_elem.category = request.POST['category']
-            ring_elem.ring_size = request.POST['size']
-            ring_elem.description = request.POST['description']
+            ring_elem.bezeichnung = request.POST.get('bezeichnung')
+            ring_elem.material = request.POST.get('material')
+            ring_elem.preis = request.POST.get('preis')
+            ring_elem.category = request.POST.get('category')
+            ring_elem.ring_size = request.POST.get('size')
+            ring_elem.description = request.POST.get('description')
+            if request.FILES.get("file") is not None:
+                ring_elem.product_img_url = request.FILES.get("file")
             ring_elem.save()
-            return JsonResponse({"saved": True}, status=200)
+            return JsonResponse({"product_edit": True,
+                                 "new_img_url": ring_elem.product_img_url.url,
+                                 "new_title": ring_elem.bezeichnung
+                                 }, status=200)
     # /end if==POST
 
     context = {

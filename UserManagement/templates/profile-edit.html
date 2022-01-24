@@ -10,9 +10,9 @@
             <img src="{% static 'assets/icons/loading-spinner.gif' %}" alt="Loading...">
         </div>
 
-        <h2>{{ user.username }}</h2>
+        <h2 id="username">{{ user.username }}</h2>
 
-        <form id="edit-profile-form" enctype="multipart/form-data">
+        <form id="edit-profile-form" class="edit-form" enctype="multipart/form-data">
             {% csrf_token %}
             <div>
                 <label for="profile-name">Username</label>
@@ -24,7 +24,9 @@
             </div>
             <div>
                 <label for="profile-pic">Profilbild</label>
-                <img src="{{ user.profile_picture.url }}" alt="Profilbild">
+                {%  if user.profile_picture %}
+                    <img id="profil-img" src="{{ user.profile_picture.url }}" alt="Profilbild">
+                {% endif %}
                 <input id="profile-pic" type="file">
             </div>
             <div>
