@@ -4,8 +4,10 @@
 {% block bodyContent %}
     <div class="pp-page">
         <div>
-            {%  if user.profile_picture %}
+            {% if user.profile_picture %}
                 <img src="{{ user.profile_picture.url }}" alt="Profilbild">
+            {% else %}
+                <img src="{% static "assets/profile-pic/default-profile.png" %}" alt="Profilbild">
             {% endif %}
         </div>
         <div>
@@ -32,12 +34,25 @@
                         <p>Customer</p>
                     {% endif %}
                 </li>
+                <li>
+                    <p>Getätigte Käufe:</p>
+                    <div>
+                        {% if payment_dict %}
+                            {% for k, v in payment_dict.items %}
+                                <p>{{ k }}: {{ v }} Stück</p>
+                            {% endfor %}
+                        {% else %}
+                            <p>noch keine Einkäufe</p>
+                        {% endif %}
+                    </div>
+                    {#                <p>{{ payment_dict }}</p>#}
+                </li>
             </ul>
-        <a href="{% url 'logout' %}" class="btn">Logout</a>
-        <form method="POST">
-            {% csrf_token %}
-            <button type="submit" name="load_editpage" class="secondary-btn">Bearbeiten</button>
-        </form>
+            <a href="{% url 'logout' %}" class="btn">Logout</a>
+            <form method="POST">
+                {% csrf_token %}
+                <button type="submit" name="load_editpage" class="secondary-btn">Bearbeiten</button>
+            </form>
         </div>
     </div>
 {% endblock %}
