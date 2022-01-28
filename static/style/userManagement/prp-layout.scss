@@ -1,0 +1,87 @@
+@use "../mixins";
+
+#prp-page {
+  min-height: calc(100vh - 136.65px);
+  margin-top: -25px;
+  @include mixins.flex-box($align-items: flex-start);
+
+  .user-info-container {
+    flex: 1 1 40%;
+    background-color: var(--Silver);
+    min-width: 20em;
+    @include mixins.flex-box($flex-direction: column);
+    padding: 20px;
+    min-height: calc(100vh - 136.65px);
+
+    & > div:first-of-type {
+      width: 70%;
+      border-radius: 20px;
+      overflow: hidden;
+      margin-bottom: 20px;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    ul {
+      li {
+        @include mixins.flex-box($justify-content: flex-start);
+
+        p:first-of-type {
+          margin-right: 7px;
+          font-weight: 500;
+          text-transform: uppercase;
+          letter-spacing: .8px;
+          font-size: 1rem;
+          min-width: 95px;
+        }
+
+        p:last-of-type {
+          font-weight: 100;
+        }
+      }
+    }
+
+    .pr-btns-wrapper {
+      margin-top: 25px;
+      @include mixins.flex-box($flex-direction: column);
+
+      a {
+        min-width: 130px;
+        text-align: center;
+        display: block;
+        margin-bottom: 7px;
+      }
+    }
+  }
+
+  & > div:last-of-type {
+    flex: 1 1 60%;
+    min-width: 20em;
+    min-height: calc(100vh - 136.65px);
+    @include mixins.flex-box($flex-direction: column);
+    text-align: center;
+    padding: 25px;
+
+    h3 {
+      margin-bottom: 10px;
+      font-size: 2rem;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .payments-list {
+      .payed-elem {
+        background-color: var(--Gold);
+        margin: 5px 0;
+        padding: 7px 20px;
+        border-radius: 10px;
+        font-weight: 100;
+      }
+
+      p {
+        font-weight: 100;
+      }
+    }
+  }
+}

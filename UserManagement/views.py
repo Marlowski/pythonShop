@@ -12,7 +12,6 @@ from Rings.models import Ring
 import re
 
 
-# TODO: zu funktionsbasierte View ändern um search_input (POST req.) abfragen zu können
 class SignUp(generic.CreateView):
     form_class = SignUpForm
     success_url = reverse_lazy('landing-page')
@@ -25,7 +24,11 @@ def profile_page(request, **kwargs):
         return search_script(request)
 
     user_id = kwargs['pk']
-    this_user = MyUser.objects.get(id=user_id)
+    this_user = MyUser.objects.filter(id=user_id).first()
+
+    # return if no user found
+    if this_user is None:
+        return redirect('landing-page')
 
     if request.method == 'POST':
         if request.POST.__contains__('load_editpage'):

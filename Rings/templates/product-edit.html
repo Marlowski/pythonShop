@@ -51,16 +51,18 @@
                     <label for="pr-size">Größe</label>
                     <input id="pr-size" type="text" value="{{ ring_elem.ring_size }}" data-default="{{ ring_elem.ring_size }}">
                 </div>
-                <div>
+                <div class="block-wrapper">
                     <label for="pr-desc">Beschreibung</label>
                     <textarea id="pr-desc" rows="4" data-default="{{ ring_elem.description }}">{{ ring_elem.description }}</textarea>
                 </div>
-                <div>
-                    {%  if ring_elem.product_img_url %}
-                        <img id="product-img" src="{{ ring_elem.product_img_url.url }}" alt="Produktbild">
-                    {% endif %}
+                <div class="form-img-upload-wrapper">
                     <label for="pr-img">Produktbild</label>
-                    <input id="pr-img" type="file">
+                    <div>
+                        {%  if ring_elem.product_img_url %}
+                            <img id="product-img" src="{{ ring_elem.product_img_url.url }}" alt="Produktbild">
+                        {% endif %}
+                        <input id="pr-img" type="file">
+                    </div>
                 </div>
             </form>
         </div>

@@ -8,7 +8,7 @@ from .models import Ring, Rating, RatingEvaluation
 
 def ring_detail(request, **kwargs):
     ring_id = kwargs['pk']
-    ring_elem = Ring.objects.get(id=ring_id)
+    ring_elem = Ring.objects.filter(id=ring_id).first()
 
     if request.method == 'POST':
         # Check if POST req. comes from search form
@@ -113,6 +113,10 @@ def ring_detail(request, **kwargs):
                        }
             return render(request, 'ring-detail.html', context)
     # /end if==POST
+
+    # redirect if product doesnt exists
+    if ring_elem is None:
+        return redirect('landing-page')
 
     context = {'ring_elem': ring_elem,
                'rating': ring_elem.get_rating(),

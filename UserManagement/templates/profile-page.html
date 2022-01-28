@@ -2,57 +2,66 @@
 {% load static %}
 
 {% block bodyContent %}
-    <div class="pp-page">
-        <div>
-            {% if user.profile_picture %}
-                <img src="{{ user.profile_picture.url }}" alt="Profilbild">
-            {% else %}
-                <img src="{% static "assets/profile-pic/default-profile.png" %}" alt="Profilbild">
-            {% endif %}
+    <div id="prp-page">
+        <div class="user-info-container">
+            <div>
+                {% if user.profile_picture %}
+                    <img src="{{ user.profile_picture.url }}" alt="Profilbild">
+                {% else %}
+                    <img src="{% static "assets/profile-pic/default-profile.png" %}" alt="Profilbild">
+                {% endif %}
+            </div>
+            <div>
+                <ul>
+                    <li>
+                        <p>Username:</p>
+                        <p>{{ user.username }}</p>
+                    </li>
+                    <li>
+                        <p>E-Mail:</p>
+                        <p>{{ user.email }}</p>
+                    </li>
+                    <li>
+                        <p>Beitritt:</p>
+                        <p>{{ user.date_joined }}</p>
+                    </li>
+                    <li>
+                        <p>Status:</p>
+                        {% if user.is_superuser %}
+                            <p>Admin</p>
+                        {% elif user.is_staff and not user.is_superuser %}
+                            <p>Mitarbeiter</p>
+                        {% elif not user.is_superuser and not user.is_staff %}
+                            <p>Customer</p>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+            <div class="pr-btns-wrapper">
+                <a href="{% url 'logout' %}" class="btn">Logout</a>
+                <form method="POST">
+                    {% csrf_token %}
+                    <button type="submit" name="load_editpage" class="secondary-btn">Bearbeiten</button>
+                </form>
+            </div>
         </div>
         <div>
             <ul>
                 <li>
-                    <p>Username:</p>
-                    <p>{{ user.username }}</p>
-                </li>
-                <li>
-                    <p>E-Mail:</p>
-                    <p>{{ user.email }}</p>
-                </li>
-                <li>
-                    <p>Beitritt:</p>
-                    <p>{{ user.date_joined }}</p>
-                </li>
-                <li>
-                    <p>Status:</p>
-                    {% if user.is_superuser %}
-                        <p>Admin</p>
-                    {% elif user.is_staff and not user.is_superuser %}
-                        <p>Mitarbeiter</p>
-                    {% elif not user.is_superuser and not user.is_staff %}
-                        <p>Customer</p>
-                    {% endif %}
-                </li>
-                <li>
-                    <p>Getätigte Käufe:</p>
-                    <div>
+                    <h3>Getätigte Käufe</h3>
+                    <ul class="payments-list">
                         {% if payment_dict %}
                             {% for k, v in payment_dict.items %}
-                                <p>{{ k }}: {{ v }} Stück</p>
+                                <li class="payed-elem">{{ k }}: {{ v }} Stück</li>
                             {% endfor %}
                         {% else %}
-                            <p>noch keine Einkäufe</p>
+                            <li>
+                                <p>noch keine Einkäufe</p>
+                            </li>
                         {% endif %}
-                    </div>
-                    {#                <p>{{ payment_dict }}</p>#}
+                    </ul>
                 </li>
             </ul>
-            <a href="{% url 'logout' %}" class="btn">Logout</a>
-            <form method="POST">
-                {% csrf_token %}
-                <button type="submit" name="load_editpage" class="secondary-btn">Bearbeiten</button>
-            </form>
         </div>
     </div>
 {% endblock %}

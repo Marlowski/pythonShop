@@ -1,0 +1,104 @@
+@use "../mixins";
+
+#edit-page-container {
+  background-color: var(--Silver);
+  padding: 75px 20px 25px 20px;
+  min-height: calc(100vh - 136.65px);
+  @include mixins.flex-box($flex-direction: column, $justify-content: flex-start);
+
+
+  &.profil-edit-page {
+    margin-top: -25px;
+  }
+
+  h2 {
+    font-size: 3rem;
+    text-align: center;
+    line-height: 50px;
+    margin-bottom: 5px;
+  }
+
+  form {
+    @include mixins.flex-box($flex-direction: column);
+    margin-top: 50px;
+
+    & > div {
+      min-width: 310px;
+      margin-bottom: 15px;
+      @include mixins.flex-box($align-items: flex-start, $justify-content: flex-start);
+    }
+
+    & > .block-wrapper {
+      flex-flow: column nowrap;
+
+      label {
+        margin: 5px 0;
+      }
+    }
+
+    & > .form-img-upload-wrapper {
+      flex-flow: column nowrap;
+
+      label {
+        margin-bottom: 7px;
+      }
+
+      img {
+        width: 70px;
+        height: 70px;
+        margin-right: 7px;
+        border-radius: 50%;
+      }
+
+      input[type="file"] {
+        border: none;
+      }
+    }
+
+    & > .pr-form-btn-wrapper {
+      margin-top: 10px;
+      @include mixins.flex-box($flex-direction: column);
+
+      button:first-of-type {
+        width: 80%;
+        min-width: 200px;
+        margin-bottom: 10px;
+      }
+    }
+
+    label {
+      display: inline-block;
+      min-width: 120px;
+      font-weight: 500;
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      margin-right: 5px;
+    }
+
+    input {
+      background-color: transparent;
+      border: none;
+      border-bottom: 1px solid #000000;
+      padding-bottom: 5px;
+      min-width: 180px;
+    }
+
+    textarea {
+      background-color: transparent;
+      border: 1px solid #000000;
+      width: 100%;
+      font-family: 'europa', sans-serif;
+      font-weight: 100;
+      font-size: .9rem;
+      padding: 5px;
+    }
+
+    select {
+      background-color: transparent;
+      border: 1px solid #000000;
+      padding: 3px;
+      min-width: 180px;
+    }
+  }
+}

@@ -41,7 +41,11 @@
             </form>
             {% if user.is_authenticated %}
                 {% block logged_in_content %}
-                    <a href="{% url 'user_profile' pk=user.id %}"><img src="{% static "assets/icons/user.png" %}" alt="Profil"></a>
+                    <a href="{% url 'user_profile' pk=user.id %}">
+                        <div class="pp-icon-img-wrapper">
+                            <img src="{{ user.profile_picture.url }}" alt="Profil">
+                        </div>
+                    </a>
                 {% endblock %}
             {% else %}
                 {% block not_logged_in_content %}

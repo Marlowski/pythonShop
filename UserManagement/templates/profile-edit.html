@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block bodyContent %}
-    <div id="edit-page-container">
+    <div id="edit-page-container" class="profil-edit-page">
         <div class="saved-banner">
             <p>Profiländerungen wurden erfolgreich gespeichert!</p>
         </div>
@@ -23,16 +23,18 @@
                 <label for="profile-mail">E-Mail</label>
                 <input id="profile-mail" type="email" value="{{ user.email }}" data-default="{{ user.email }}" required>
             </div>
-            <div>
+            <div class="form-img-upload-wrapper">
                 <label for="profile-pic">Profilbild</label>
-                {% if user.profile_picture %}
-                    <img id="profil-img" src="{{ user.profile_picture.url }}" alt="Profilbild">
-                {% endif %}
-                <input id="profile-pic" type="file">
+                <div>
+                   {% if user.profile_picture %}
+                        <img id="profil-img" src="{{ user.profile_picture.url }}" alt="Profilbild">
+                    {% endif %}
+                    <input id="profile-pic" type="file">
+                </div>
             </div>
-            <div>
-                <button id="save_profile_changes" name="save_edited_profile">Speichern</button>
-                <button type="submit" name="discard_changes" formmethod="post">Abbrechen</button>
+            <div class="pr-form-btn-wrapper">
+                <button id="save_profile_changes" name="save_edited_profile" class="btn">Speichern</button>
+                <button type="submit" name="discard_changes" formmethod="post" class="tertiary-btn">Abbrechen</button>
             </div>
         </form>
     </div>
