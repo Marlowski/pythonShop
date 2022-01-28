@@ -16,7 +16,8 @@
             {% csrf_token %}
             <div>
                 <label for="profile-name">Username</label>
-                <input id="profile-name" type="text" name="username" value="{{ user.username }}" data-default="{{ user.username }}" required>
+                <input id="profile-name" type="text" name="username" value="{{ user.username }}"
+                       data-default="{{ user.username }}" required>
             </div>
             <div>
                 <label for="profile-mail">E-Mail</label>
@@ -24,14 +25,14 @@
             </div>
             <div>
                 <label for="profile-pic">Profilbild</label>
-                {%  if user.profile_picture %}
+                {% if user.profile_picture %}
                     <img id="profil-img" src="{{ user.profile_picture.url }}" alt="Profilbild">
                 {% endif %}
                 <input id="profile-pic" type="file">
             </div>
             <div>
                 <button id="save_profile_changes" name="save_edited_profile">Speichern</button>
-                <button type="submit" name="discard_changes">Abbrechen</button>
+                <button type="submit" name="discard_changes" formmethod="post">Abbrechen</button>
             </div>
         </form>
     </div>

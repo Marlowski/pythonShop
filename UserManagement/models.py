@@ -6,7 +6,7 @@ from Cart.models import Cart, CartItem
 class MyUser(AbstractUser):
     pass
 
-    profile_picture = models.ImageField(upload_to='picture_uploads/', blank=True, null=True)
+    profile_picture = models.ImageField(upload_to='picture_uploads/', blank=True, null=True, default="")
 
     def __str__(self):
         return self.username + " - (" + self.email + ")"
@@ -21,3 +21,9 @@ class MyUser(AbstractUser):
             return amount
         else:
             return 0
+
+    # overridden save method
+    def save(self, *args, **kwargs):
+        if self.profile_picture == "":
+            self.profile_picture = 'picture_uploads/default_pic/default-profile.png'
+        super().save(*args, **kwargs)
