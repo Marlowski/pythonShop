@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}Add product{% endblock %}
+
+{% block bodyContent %}
+
+    {% if not can_create %}
+        You are not authorized to access this segment.<br><br>
+    {% endif %}
+    {% if can_create %}
+        <h2>Add product</h2>
+        <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit", name="create">Add this Ring</button>
+            <button type="button">
+                <a href="{% url 'start' %}" style="text-decoration: none; color: black">Back to Customer Service</a>
+            </button>
+        </form>
+    {%endif%}
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags %}
+                <script>alert("{{ message }}")</script>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}

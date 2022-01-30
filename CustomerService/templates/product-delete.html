@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Product delete{% endblock %}
+
+{% block bodyContent %}
+<h2>Product delete</h2>
+    {% if not can_delete %}
+        You are not authorized to delete products.<br><br>
+    {% endif %}
+
+    {% if can_delete %}
+        <b style="color:brown"> Soll das Produkt "{{ product.bezeichnung }}" wirklich gelöscht werden</b><br>
+        <form method="POST">
+            {% csrf_token %}
+            <button type="submit" name="delete">Delete</button>
+        <button type="button">
+                <a href="{% url 'list' %}" style="text-decoration: none; color: black">Back to the list</a>
+        </button>
+        </form>
+    {% endif %}
+
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags %}
+                <script>alert("{{ message }}")</script>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}

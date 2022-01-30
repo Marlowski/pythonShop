@@ -27,3 +27,6 @@ class MyUser(AbstractUser):
         if self.profile_picture == "":
             self.profile_picture = 'picture_uploads/default_pic/default-profile.png'
         super().save(*args, **kwargs)
+
+    def is_superuser_or_staff(self):
+        return self.is_superuser or self.is_staff

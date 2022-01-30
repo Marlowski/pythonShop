@@ -43,11 +43,23 @@
                         </div>
                         <h5>{{ elem.preis }}</h5>
                     </a>
+                {% if can_access %}
+                    <a href="{% url 'product-delete' pk=elem.id %}">
+                    <button type="submit" name="requestDelete">Delete</button>
+                    </a>
+                {% endif %}
                 </li>
         {% endfor %}
         </ul>
 
     {% else %}
         <h3 class="list__no-result-text">Es wurden Keine passenden Produkte gefunden!</h3>
+    {% endif %}
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags %}
+                <script>alert("{{ message }}")</script>
+            {% endif %}
+        {% endfor %}
     {% endif %}
 {% endblock %}

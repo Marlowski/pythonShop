@@ -28,6 +28,7 @@ urlpatterns = [
     path('rings/', include('Rings.urls')),
     path('rings/', include('django.contrib.auth.urls')),
     path('cart/', include('Cart.urls')),
+    path('customerservice/', include('CustomerService.urls')),
 ]
 
 if settings.DEBUG:
