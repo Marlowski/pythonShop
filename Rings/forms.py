@@ -5,6 +5,7 @@ from .models import Ring
 
 
 class RingForm(forms.ModelForm):
+    product_img_url = forms.ImageField(required=True)
 
     class Meta:
         model = Ring

@@ -1,4 +1,6 @@
 from django.urls import path
+# important import so in 'ring-list' back btn can use CustomerService urls
+import CustomerService.urls
 from . import views
 
 urlpatterns = [

@@ -1,25 +1,24 @@
 {% extends 'base.html' %}
 {% load static %}
 
-
-{% block title %}Add product{% endblock %}
-
 {% block bodyContent %}
+    <div id="edit-page-container" class="cs-pr-create-page">
+        {% if not can_create %}
+            You are not authorized to access this segment.<br><br>
+        {% endif %}
+        {% if can_create %}
+            <h2 id="product-title">Neues Produkt</h2>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="cs-form-btn-wrapper">
+                    <button type="submit" name="create" class="btn">Produkt hinzufügen</button>
+                    <a href="{% url 'start' %}" class="tertiary-btn">Zurück zur Übersicht</a>
+                </div>
+            </form>
+        {%endif%}
+    </div>
 
-    {% if not can_create %}
-        You are not authorized to access this segment.<br><br>
-    {% endif %}
-    {% if can_create %}
-        <h2>Add product</h2>
-        <form method="POST" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit", name="create">Add this Ring</button>
-            <button type="button">
-                <a href="{% url 'start' %}" style="text-decoration: none; color: black">Back to Customer Service</a>
-            </button>
-        </form>
-    {%endif%}
     {% if messages %}
         {% for message in messages %}
             {% if message.tags %}

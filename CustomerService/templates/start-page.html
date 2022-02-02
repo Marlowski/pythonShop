@@ -4,24 +4,27 @@
 {% block title %}Customer Service{% endblock %}
 
 {% block bodyContent %}
-<h2>Customer Service</h2>
-    {% if not can_access %}
-        You are not authorized to access this segment.<br><br>
-    {% endif %}
-
-    {% if can_access %}
-        <form method="POST">
-            {% csrf_token %}
-            <button type="submit" name="create">Create new Ring</button>
-            <button type="submit" name="list">Delete a Ring</button>
-        </form>
-    {% endif %}
-
-    {% if messages %}
-        {% for message in messages %}
-            {% if message.tags %}
-                <script>alert("{{ message }}")</script>
+    <div id="mm-page">
+        <div class="mm-page__inner-wrapper">
+            <h2>Customer Service</h2>
+            {% if not can_access %}
+                <p>You are not authorized to access this segment.</p>
             {% endif %}
-        {% endfor %}
-    {% endif %}
+            {% if can_access %}
+                <form method="POST">
+                    {% csrf_token %}
+                    <button type="submit" name="create" class="btn">Create new Ring</button>
+                    <button type="submit" name="list" class="btn">Delete a Ring</button>
+                </form>
+            {% endif %}
+
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message.tags %}
+                        <script>alert("{{ message }}")</script>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}

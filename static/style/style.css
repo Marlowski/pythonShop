@@ -86,6 +86,9 @@ h1, h2, h3, h4, p, ul, li, a {
   top: 15px;
   left: 20px;
 }
+.tertiary-btn.spaced {
+  margin: 20px;
+}
 .tertiary-btn:hover {
   color: #484848;
 }
@@ -526,6 +529,7 @@ header .header__navbar ul li a {
   font-size: 3rem;
   font-weight: 300;
   margin-bottom: 20px;
+  text-align: center;
 }
 #mm-page .mm-page__inner-wrapper form p {
   margin: 7px 0;
@@ -760,6 +764,10 @@ header .header__navbar ul li a {
   .list__product-list-container {
     width: 100%;
   }
+
+  #delete-list-style.list__product-list-container {
+    width: 95%;
+  }
 }
 @media screen and (max-width: 600px) {
   .list__product-list-container {
@@ -773,6 +781,10 @@ header .header__navbar ul li a {
   .list__product-list-container li a img {
     height: 230px;
   }
+
+  #delete-list-style.list__product-list-container li a {
+    flex-flow: column nowrap;
+  }
 }
 @media screen and (max-width: 404px) {
   .list__product-list-container li {
@@ -784,6 +796,63 @@ header .header__navbar ul li a {
     height: 315px;
   }
 }
+#delete-list-style {
+  flex-flow: column nowrap;
+}
+#delete-list-style li {
+  flex: 1 1 100%;
+  height: min-content;
+  width: 100%;
+  padding: 7px 15px;
+}
+#delete-list-style li a {
+  position: relative;
+  left: unset;
+  bottom: unset;
+  transform: none;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: center;
+}
+#delete-list-style li a img {
+  height: 100px;
+  width: auto;
+}
+#delete-list-style li a h5 {
+  position: relative;
+  left: unset;
+  bottom: unset;
+  transform: none;
+  margin: 0 20px;
+  order: 2;
+}
+#delete-list-style li a .list__rating-wrapper {
+  margin: 0;
+  order: 3;
+}
+#delete-list-style li a:last-of-type {
+  position: absolute;
+  right: 15px;
+  bottom: 50%;
+  transform: translateY(50%);
+}
+#delete-list-style li a:last-of-type button {
+  border-radius: 50%;
+  background-color: #bf0000;
+  color: #ffffff;
+  font-weight: 100;
+  border: none;
+  width: 25px;
+  height: 25px;
+  padding-bottom: 2px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-out;
+}
+#delete-list-style li a:last-of-type button:hover {
+  background-color: #d73232;
+}
+
 .empty-cart-text {
   margin-bottom: 25px;
 }
@@ -1403,6 +1472,40 @@ label[for=email-field] {
   border: 1px solid #000000;
   padding: 3px;
   min-width: 180px;
+}
+
+.cs-pr-delete-page h2 {
+  line-height: 50px;
+}
+.cs-pr-delete-page b {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.cs-pr-delete-page form {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+.cs-pr-delete-page form button {
+  min-width: 150px;
+  margin-bottom: 10px;
+}
+
+#edit-page-container.cs-pr-create-page {
+  margin-top: -25px;
+}
+#edit-page-container.cs-pr-create-page .cs-form-btn-wrapper {
+  margin-top: 10px;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+#edit-page-container.cs-pr-create-page .cs-form-btn-wrapper button {
+  width: 80%;
+  min-width: 200px;
+  margin-bottom: 10px;
 }
 
 /*# sourceMappingURL=style.css.map */

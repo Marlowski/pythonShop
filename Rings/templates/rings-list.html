@@ -7,17 +7,27 @@
             <h3>{{ product_list|length }} Suchergebnisse für:</h3>
             <h2>{{ query_text }}</h2>
         {% else %}
-            <h2>{{ query_text }}</h2>
+            {% if can_access %}
+                <h2>Produkt Liste</h2>
+            {% else %}
+                <h2>{{ query_text }}</h2>
+            {% endif %}
         {% endif %}
     </div>
 
 
     {% if product_list %}
-        <ul class="list__product-list-container">
+        {% if can_access %}
+            <a class="tertiary-btn spaced" href="{% url 'start' %}">&#9666; Zurück</a>
+            <ul class="list__product-list-container" id="delete-list-style">
+        {% else %}
+            <ul class="list__product-list-container">
+        {% endif %}
             {% for elem in product_list %}
                 <li>
                     <a href="{% url 'ring_detail' pk=elem.id %}">
                         <img src="{{ elem.product_img_url.url }}" alt="{{ elem.bezeichnung }} Bild">
+
                         <h4>{{ elem.bezeichnung }}</h4>
                         <div class="list__rating-wrapper">
                             {% if elem.get_amount_of_ratings > 0 %}
@@ -45,7 +55,7 @@
                     </a>
                 {% if can_access %}
                     <a href="{% url 'product-delete' pk=elem.id %}">
-                    <button type="submit" name="requestDelete">Delete</button>
+                    <button type="submit" name="requestDelete">X</button>
                     </a>
                 {% endif %}
                 </li>

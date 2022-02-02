@@ -90,6 +90,10 @@ h1, h2, h3, h4, p, ul, li, a {
     left: 20px;
   }
 
+  &.spaced {
+    margin: 20px;
+  }
+
   &:hover {
     color: #484848;
   }

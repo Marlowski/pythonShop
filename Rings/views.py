@@ -152,7 +152,18 @@ def rings_list(request, **kwargs):
             product_query = Ring.objects.filter(ring_size__contains=search_input)
             search_input = search_input + " mm"
         else:
-            product_query = Ring.objects.filter(bezeichnung__contains=search_input)
+            # Check if input is id
+            if search_input.isnumeric():
+                product_query = Ring.objects.filter(id=int(search_input))
+                # try name search if query doesnt yield any results
+                if len(product_query) == 0:
+                    product_query = Ring.objects.filter(bezeichnung__contains=search_input)
+            else:
+                product_query = Ring.objects.filter(bezeichnung__contains=search_input)
+
+        # only one elem found, do direct redirect
+        if len(product_query) == 1:
+            return redirect('/rings/product/' + str(product_query[0].id))
 
         context = {'product_list': product_query, 'query_origin': True, 'query_text': search_input}
         return render(request, 'rings-list.html', context)
@@ -175,7 +186,10 @@ def ring_edit(request, **kwargs):
         return search_script(request)
 
     ring_id = kwargs['pk']
-    ring_elem = Ring.objects.get(id=ring_id)
+    ring_elem = Ring.objects.filter(id=ring_id).first()
+
+    if ring_elem is None:
+        return redirect("landing-page")
 
     if request.method == 'POST':
         if "discard_changes" in request.POST:
@@ -184,7 +198,6 @@ def ring_edit(request, **kwargs):
         # delete product
         if request.POST.__contains__('delete_product'):
             Ring.objects.get(id=ring_id).delete()
-            return redirect('landing-page')
 
         # save changes to product
         if request.POST.__contains__("save_edited_product"):

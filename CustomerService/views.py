@@ -4,9 +4,15 @@ from Rings.forms import RingForm
 from Rings.models import Ring
 from django.contrib import messages
 
+from static.script.search import search_script
+
 
 @staff_member_required(login_url='/userManagement/login/')
 def start_page(request):
+    # Check if POST req. comes from search form
+    if request.POST.__contains__('search_input'):
+        return search_script(request)
+
     if request.method == 'POST':
         if 'delete' in request.POST:
             return redirect('product-delete')
@@ -26,12 +32,16 @@ def start_page(request):
 
 @staff_member_required(login_url='/userManagement/login/')
 def product_create(request):
+    # Check if POST req. comes from search form
+    if request.POST.__contains__('search_input'):
+        return search_script(request)
+
     if request.method == 'POST':
         form = RingForm(request.POST, request.FILES)
         if 'create' in request.POST:
             if form.is_valid():
                 form.save()
-                messages.success(request, f"New Ring created: {form.cleaned_data.get('bezeichnung')}")
+                messages.success(request, f"Neues Produkt hinzugefügt: {form.cleaned_data.get('bezeichnung')}")
             else:
                 pass
             return redirect('product-create')
@@ -49,11 +59,15 @@ def product_create(request):
 
 @staff_member_required(login_url='/userManagement/login/')
 def product_delete(request, pk: str):
+    # Check if POST req. comes from search form
+    if request.POST.__contains__('search_input'):
+        return search_script(request)
+
     product_id = pk
     if request.method == 'POST':
         if 'delete' in request.POST:
             Ring.objects.get(id=product_id).delete()
-            messages.success(request, "Ring successfully deleted")
+            messages.success(request, "Ring erfolgreich gelöscht!")
             return redirect('list')
 
     else:
@@ -70,6 +84,10 @@ def product_delete(request, pk: str):
 
 @staff_member_required(login_url='/userManagement/login/')
 def product_list(request):
+    # Check if POST req. comes from search form
+    if request.POST.__contains__('search_input'):
+        return search_script(request)
+
     can_access = False
     myuser = request.user
     if not myuser.is_anonymous:

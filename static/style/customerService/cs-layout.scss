@@ -1,0 +1,41 @@
+@use "../mixins";
+
+//delete page
+.cs-pr-delete-page {
+  h2 {
+    line-height: 50px;
+  }
+
+  b {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  form {
+    @include mixins.flex-box($flex-direction: column);
+
+    button {
+      min-width: 150px;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+//create page
+#edit-page-container.cs-pr-create-page {
+  margin-top: -25px;
+
+  .cs-form-btn-wrapper {
+    margin-top: 10px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+
+    button {
+      width: 80%;
+      min-width: 200px;
+      margin-bottom: 10px;
+    }
+  }
+}
